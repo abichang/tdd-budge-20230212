@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 @Slf4j
 public class BudgetCalculator {
 
@@ -24,6 +26,8 @@ public class BudgetCalculator {
     public Double query(LocalDate start, LocalDate end) {
         YearMonth startY = YearMonth.from(start);
 
+        // get iterator months
+        // (202101, 202103) -> (01, 02, 03)
         LocalDate tmp = LocalDate.of(start.getYear(), start.getMonthValue(), 1);
         List<String> monthRange = new ArrayList<>();
         while (!tmp.isAfter(end)) {
@@ -32,47 +36,45 @@ public class BudgetCalculator {
             startY = YearMonth.from(tmp);
         }
 
-        List<BudgetVo> budgetVos = budgetRepo.getAll().stream()
+        List<BudgetVo> budgetVos = new ArrayList<>(budgetRepo.getAll().stream()
                 .map(budget -> BudgetVo.builder()
                         .yearMonth(LocalDate.parse(budget.getYearMonth() + "01", df2))
                         .amount(budget.getAmount())
                         .build())
                 .filter(budgetVo -> monthRange.contains(df.format(budgetVo.getYearMonth())))
-                .collect(Collectors.toList())
-                .stream()
-                .collect(Collectors.toList());
+                .collect(toList()));
 
-        List<Integer> dayCounts = new ArrayList<>();
+        List<Integer> dayCountsEachMonth = new ArrayList<>();
         if (budgetVos.size() == 1) {
-            dayCounts.add(end.getDayOfMonth() - start.getDayOfMonth() + 1);
+            dayCountsEachMonth.add(end.getDayOfMonth() - start.getDayOfMonth() + 1);
         } else {
             for (int i = 0; i < budgetVos.size(); i++) {
                 if (i==0) {
-                    dayCounts.add(budgetVos.get(0).getYearMonth().lengthOfMonth()-start.getDayOfMonth()+1);
+                    dayCountsEachMonth.add(budgetVos.get(0).getYearMonth().lengthOfMonth()-start.getDayOfMonth()+1);
                 } else if (i == budgetVos.size() -1) {
-                    dayCounts.add(end.getDayOfMonth());
+                    dayCountsEachMonth.add(end.getDayOfMonth());
                 } else {
-                    dayCounts.add(budgetVos.get(i).getYearMonth().lengthOfMonth());
+                    dayCountsEachMonth.add(budgetVos.get(i).getYearMonth().lengthOfMonth());
                 }
             }
         }
 
-        List<Double> collect = budgetRepo.getAll().stream()
+        List<Double> priceUnitEachMonth = budgetRepo.getAll().stream()
                 .map(budget -> BudgetVo.builder()
                         .yearMonth(LocalDate.parse(budget.getYearMonth() + "01", df2))
                         .amount(budget.getAmount())
                         .build())
                 .filter(budgetVo -> monthRange.contains(df.format(budgetVo.getYearMonth())))
-                .collect(Collectors.toList())
+                .collect(toList())
                 .stream()
                 .map( v-> {
                     return v.getAmount()/ (double) (v.getYearMonth().lengthOfMonth());
                 })
-                .collect(Collectors.toList());
+                .collect(toList());
 
         double rtn = 0.0;
-        for (int i = 0; i < collect.size(); i++) {
-            rtn += dayCounts.get(i) * collect.get(i);
+        for (int i = 0; i < priceUnitEachMonth.size(); i++) {
+            rtn += dayCountsEachMonth.get(i) * priceUnitEachMonth.get(i);
         }
 
         return rtn;
