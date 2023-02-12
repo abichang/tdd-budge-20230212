@@ -28,7 +28,7 @@ public class BudgetCalculator {
                     .yearMonth(YearMonth.parse(budgetEntity.getYearMonth(), df))
                     .amount(budgetEntity.getAmount())
                     .build();
-            if (monthRange.contains(budget.getYearMonth())) {
+            if (!(start.isAfter(budget.getEndDay()) || end.isBefore(budget.getStartDay()))) {
                 LocalDate periodStart = start.isAfter(budget.getStartDay()) ? start : budget.getStartDay();
                 LocalDate periodEnd = end.isBefore(budget.getEndDay()) ? end : budget.getEndDay();
 
