@@ -53,16 +53,13 @@ public class BudgetCalculator {
             for (int i = 0; i < budgets.size(); i++) {
                 BudgetVo budget = budgets.get(i);
 
-                LocalDate periodStart;
+                LocalDate periodStart = start.isAfter(budget.getStartDay()) ? start : budget.getStartDay();
                 LocalDate periodEnd;
                 if (i == 0) {
-                    periodStart = start;
                     periodEnd = budget.getEndDay();
                 } else if (i == budgets.size() - 1) {
-                    periodStart = budget.getStartDay();
                     periodEnd = end;
                 } else {
-                    periodStart = budget.getStartDay();
                     periodEnd = budget.getEndDay();
                 }
                 int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
