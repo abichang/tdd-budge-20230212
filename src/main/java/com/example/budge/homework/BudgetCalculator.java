@@ -54,14 +54,8 @@ public class BudgetCalculator {
                 BudgetVo budget = budgets.get(i);
 
                 LocalDate periodStart = start.isAfter(budget.getStartDay()) ? start : budget.getStartDay();
-                LocalDate periodEnd;
-                if (i == 0) {
-                    periodEnd = budget.getEndDay();
-                } else if (i == budgets.size() - 1) {
-                    periodEnd = end;
-                } else {
-                    periodEnd = budget.getEndDay();
-                }
+                LocalDate periodEnd = end.isBefore(budget.getEndDay()) ? end : budget.getEndDay();
+                
                 int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
                 dayCountsEachMonth.add(days);
             }
