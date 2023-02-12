@@ -19,10 +19,10 @@ public class BudgetVo {
     private Integer amount;
 
     public LocalDate getStartDay() {
-        return getYearMonth().atDay(1);
+        return this.yearMonth.atDay(1);
     }
 
     public LocalDate getEndDay() {
-        return getYearMonth().atEndOfMonth();
+        return this.yearMonth.atEndOfMonth();
     }
 }
