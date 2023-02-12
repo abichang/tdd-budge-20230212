@@ -52,19 +52,18 @@ public class BudgetCalculator {
 
             for (int i = 0; i < budgetVos.size(); i++) {
                 BudgetVo budgetVo = budgetVos.get(i);
-                YearMonth currentBudgetYearMonth = budgetVo.getYearMonth();
 
                 LocalDate periodStart;
                 LocalDate periodEnd;
                 if (i == 0) {
                     periodStart = start;
-                    periodEnd = currentBudgetYearMonth.atEndOfMonth();
+                    periodEnd = budgetVo.getYearMonth().atEndOfMonth();
                 } else if (i == budgetVos.size() - 1) {
-                    periodStart = currentBudgetYearMonth.atDay(1);
+                    periodStart = budgetVo.getYearMonth().atDay(1);
                     periodEnd = end;
                 } else {
-                    periodStart = currentBudgetYearMonth.atDay(1);
-                    periodEnd = currentBudgetYearMonth.atEndOfMonth();
+                    periodStart = budgetVo.getYearMonth().atDay(1);
+                    periodEnd = budgetVo.getYearMonth().atEndOfMonth();
                 }
                 int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
                 dayCountsEachMonth.add(days);
