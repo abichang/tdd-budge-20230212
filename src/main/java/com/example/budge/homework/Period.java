@@ -16,12 +16,11 @@ public class Period {
         int days;
         if (this.start.isAfter(budget.getEndDay()) || this.end.isBefore(budget.getStartDay())) {
             return 0;
-        } else {
-            LocalDate periodStart = this.start.isAfter(budget.getStartDay()) ? this.start : budget.getStartDay();
-            LocalDate periodEnd = this.end.isBefore(budget.getEndDay()) ? this.end : budget.getEndDay();
-
-            days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
         }
+        LocalDate periodStart = this.start.isAfter(budget.getStartDay()) ? this.start : budget.getStartDay();
+        LocalDate periodEnd = this.end.isBefore(budget.getEndDay()) ? this.end : budget.getEndDay();
+
+        days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
         return days;
     }
 }
