@@ -21,7 +21,7 @@ public class Budget {
     private Integer amount;
 
     public long getOverlappingAmount(Period period) {
-        return toVo().getOverlappingAmount(period);
+        return toVo().getOverlappingAmount(period, toVo().getYearMonth());
     }
 
     public BudgetVo toVo() {
