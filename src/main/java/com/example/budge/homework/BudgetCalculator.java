@@ -26,19 +26,24 @@ public class BudgetCalculator {
                     .amount(budgetEntity.getAmount())
                     .build();
             Period period = new Period(start, end);
-            int days;
-            if (period.getStart().isAfter(budget.getEndDay()) || period.getEnd().isBefore(budget.getStartDay())) {
-                days = 0;
-            } else {
-                LocalDate periodStart = period.getStart().isAfter(budget.getStartDay()) ? period.getStart() : budget.getStartDay();
-                LocalDate periodEnd = period.getEnd().isBefore(budget.getEndDay()) ? period.getEnd() : budget.getEndDay();
-
-                days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
-            }
+            int days = getOverlappingDays(budget, period);
             sum += days * budget.getDailyAmount();
         }
 
         return sum;
+    }
+
+    private static int getOverlappingDays(BudgetVo budget, Period period) {
+        int days;
+        if (period.getStart().isAfter(budget.getEndDay()) || period.getEnd().isBefore(budget.getStartDay())) {
+            days = 0;
+        } else {
+            LocalDate periodStart = period.getStart().isAfter(budget.getStartDay()) ? period.getStart() : budget.getStartDay();
+            LocalDate periodEnd = period.getEnd().isBefore(budget.getEndDay()) ? period.getEnd() : budget.getEndDay();
+
+            days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
+        }
+        return days;
     }
 
 }
