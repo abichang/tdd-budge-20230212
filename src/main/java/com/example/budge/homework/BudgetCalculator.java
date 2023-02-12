@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
 public class BudgetCalculator {
 
     private final BudgetRepo budgetRepo;
-    private final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMM");
 
     public BudgetCalculator(BudgetRepo budgetRepo) {
         this.budgetRepo = budgetRepo;
@@ -20,7 +19,7 @@ public class BudgetCalculator {
         double sum = 0.0;
         Period period = new Period(start, end);
         for (Budget budgetEntity : budgetRepo.getAll()) {
-            BudgetVo budget = budgetEntity.toVo(df);
+            BudgetVo budget = budgetEntity.toVo(DateTimeFormatter.ofPattern("yyyyMM"));
 
             sum += budget.getOverlappingAmount(period);
         }
