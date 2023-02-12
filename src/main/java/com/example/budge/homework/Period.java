@@ -14,11 +14,11 @@ public class Period {
 
     public int getOverlappingDays(BudgetVo budget) {
         int days;
-        if (getStart().isAfter(budget.getEndDay()) || getEnd().isBefore(budget.getStartDay())) {
+        if (this.start.isAfter(budget.getEndDay()) || this.end.isBefore(budget.getStartDay())) {
             days = 0;
         } else {
-            LocalDate periodStart = getStart().isAfter(budget.getStartDay()) ? getStart() : budget.getStartDay();
-            LocalDate periodEnd = getEnd().isBefore(budget.getEndDay()) ? getEnd() : budget.getEndDay();
+            LocalDate periodStart = this.start.isAfter(budget.getStartDay()) ? this.start : budget.getStartDay();
+            LocalDate periodEnd = this.end.isBefore(budget.getEndDay()) ? this.end : budget.getEndDay();
 
             days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
         }
