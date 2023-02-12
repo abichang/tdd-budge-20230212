@@ -16,8 +16,7 @@ import static java.util.stream.Collectors.toList;
 public class BudgetCalculator {
 
     private final BudgetRepo budgetRepo;
-    private DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMM");
-    private DateTimeFormatter df2 = DateTimeFormatter.ofPattern("yyyyMMdd");
+    private final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMM");
 
     public BudgetCalculator(BudgetRepo budgetRepo) {
         this.budgetRepo = budgetRepo;
