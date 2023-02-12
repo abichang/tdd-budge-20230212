@@ -45,8 +45,8 @@ public class BudgetCalculator {
 
         List<Integer> dayCountsEachMonth = new ArrayList<>();
         if (budgetVos.size() == 1) {
-            int daysDifferent = (int) ChronoUnit.DAYS.between(start, end.plusDays(1L));
-            dayCountsEachMonth.add(daysDifferent);
+            int days = (int) ChronoUnit.DAYS.between(start, end.plusDays(1L));
+            dayCountsEachMonth.add(days);
         } else {
             for (int i = 0; i < budgetVos.size(); i++) {
                 YearMonth currentBudgetYearMonth = budgetVos.get(i).getYearMonth();
