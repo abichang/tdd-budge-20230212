@@ -9,7 +9,6 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -27,21 +26,28 @@ public class BudgetCalculator {
     public Double query(LocalDate start, LocalDate end) {
         List<String> monthRange = getMonthRange(start, end);
 
-        List<BudgetVo> budgetVos = budgetRepo.getAll().stream()
-                .map(budget -> BudgetVo.builder()
-                        .yearMonth(LocalDate.parse(budget.getYearMonth() + "01", df2))
-                        .amount(budget.getAmount())
-                        .build())
-                .filter(budgetVo1 -> monthRange.contains(df.format(budgetVo1.getYearMonth())))
-                .collect(Collectors.toList());
+        List<BudgetVo> budgetVos = new ArrayList<>();
+        for (Budget budget1 : budgetRepo.getAll()) {
+            BudgetVo budgetVo1 = BudgetVo.builder()
+                    .yearMonth(LocalDate.parse(budget1.getYearMonth() + "01", df2))
+                    .amount(budget1.getAmount())
+                    .build();
+            if (monthRange.contains(df.format(budgetVo1.getYearMonth()))) {
+                budgetVos.add(budgetVo1);
+            }
+        }
 
-        List<Double> priceUnitEachMonth = budgetRepo.getAll().stream()
-                .map(budget -> BudgetVo.builder()
-                        .yearMonth(LocalDate.parse(budget.getYearMonth() + "01", df2))
-                        .amount(budget.getAmount())
-                        .build())
-                .filter(budgetVo -> monthRange.contains(df.format(budgetVo.getYearMonth())))
-                .collect(toList())
+        List<BudgetVo> list = new ArrayList<>();
+        for (Budget budget : budgetRepo.getAll()) {
+            BudgetVo build = BudgetVo.builder()
+                    .yearMonth(LocalDate.parse(budget.getYearMonth() + "01", df2))
+                    .amount(budget.getAmount())
+                    .build();
+            if (monthRange.contains(df.format(build.getYearMonth()))) {
+                list.add(build);
+            }
+        }
+        List<Double> priceUnitEachMonth = list
                 .stream()
                 .map(budgetVo -> {
                     return budgetVo.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
