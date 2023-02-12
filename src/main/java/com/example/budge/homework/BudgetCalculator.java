@@ -22,7 +22,6 @@ public class BudgetCalculator {
     public Double query(LocalDate start, LocalDate end) {
         List<YearMonth> monthRange = getMonthRange(start, end);
 
-        List<BudgetVo> budgets = new ArrayList<>();
         double sum = 0.0;
         for (Budget budgetEntity : budgetRepo.getAll()) {
             BudgetVo budget = BudgetVo.builder()
