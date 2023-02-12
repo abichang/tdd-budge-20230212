@@ -63,8 +63,8 @@ public class BudgetCalculator {
                     periodStart = currentBudgetYearMonth.atDay(1);
                     periodEnd = end;
                 } else {
-                    periodStart = LocalDate.of(currentBudgetYearMonth.getYear(), currentBudgetYearMonth.getMonth(), 1);
-                    periodEnd = LocalDate.of(currentBudgetYearMonth.getYear(), currentBudgetYearMonth.getMonth(), currentBudgetYearMonth.lengthOfMonth());
+                    periodStart = currentBudgetYearMonth.atDay(1);
+                    periodEnd = currentBudgetYearMonth.atEndOfMonth();
                 }
                 int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
                 dayCountsEachMonth.add(days);
