@@ -20,10 +20,8 @@ public class BudgetCalculator {
 
         double sum = 0.0;
         for (Budget budgetEntity : budgetRepo.getAll()) {
-            BudgetVo budget = BudgetVo.builder()
-                    .yearMonth(YearMonth.parse(budgetEntity.getYearMonth(), df))
-                    .amount(budgetEntity.getAmount())
-                    .build();
+            BudgetVo budget = new BudgetVo(YearMonth.parse(budgetEntity.getYearMonth(), df), budgetEntity.getAmount());
+
             Period period = new Period(start, end);
             long days = period.getOverlappingDays(budget.getPeriod());
             sum += days * budget.getDailyAmount();
