@@ -39,7 +39,7 @@ public class BudgetCalculator {
                 LocalDate periodEnd;
                 if (i == 0) {
                     periodStart = start;
-                    periodEnd = budgetVos.get(0).getYearMonth().withDayOfMonth(budgetVos.get(0).getYearMonth().lengthOfMonth()).plusDays(1L);
+                    periodEnd = budgetVos.get(i).getYearMonth().withDayOfMonth(budgetVos.get(i).getYearMonth().lengthOfMonth()).plusDays(1L);
                 } else if (i == budgetVos.size() - 1) {
                     periodStart = LocalDate.of(end.getYear(), end.getMonth(), 1);
                     periodEnd = end.plusDays(1L);
