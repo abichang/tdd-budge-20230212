@@ -47,7 +47,7 @@ public class BudgetCalculator {
                 list.add(build);
             }
         }
-        List<Double> priceUnitEachMonth = list
+        List<Double> priceUnitEachMonth = budgetVos
                 .stream()
                 .map(budgetVo -> {
                     return budgetVo.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
