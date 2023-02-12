@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.YearMonth;
 
 @Builder(toBuilder = true)
@@ -19,15 +18,7 @@ public class BudgetVo {
     private Integer amount;
 
     public Period getPeriod() {
-        return new Period(getStartDay(), getEndDay());
-    }
-
-    public LocalDate getStartDay() {
-        return this.yearMonth.atDay(1);
-    }
-
-    public LocalDate getEndDay() {
-        return this.yearMonth.atEndOfMonth();
+        return new Period(this.yearMonth.atDay(1), this.yearMonth.atEndOfMonth());
     }
 
     public int getDailyAmount() {
