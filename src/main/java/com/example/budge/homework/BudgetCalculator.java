@@ -28,9 +28,9 @@ public class BudgetCalculator {
         List<String> monthRange = getMonthRange(start, end);
 
         List<BudgetVo> budgetVos = budgetRepo.getAll().stream()
-                .map(budget1 -> BudgetVo.builder()
-                        .yearMonth(LocalDate.parse(budget1.getYearMonth() + "01", df2))
-                        .amount(budget1.getAmount())
+                .map(budget -> BudgetVo.builder()
+                        .yearMonth(LocalDate.parse(budget.getYearMonth() + "01", df2))
+                        .amount(budget.getAmount())
                         .build())
                 .filter(budgetVo1 -> monthRange.contains(df.format(budgetVo1.getYearMonth())))
                 .collect(Collectors.toList());
