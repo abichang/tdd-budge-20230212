@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 
 @Builder(toBuilder = true)
@@ -16,4 +17,8 @@ public class BudgetVo {
     private YearMonth yearMonth;
 
     private Integer amount;
+
+    public LocalDate getEndDay() {
+        return getYearMonth().atEndOfMonth();
+    }
 }
