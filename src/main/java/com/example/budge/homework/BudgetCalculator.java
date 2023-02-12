@@ -35,22 +35,20 @@ public class BudgetCalculator {
             dayCountsEachMonth.add(daysDifferent);
         } else {
             for (int i = 0; i < budgetVos.size(); i++) {
+                LocalDate periodStart;
+                LocalDate periodEnd;
                 if (i == 0) {
-                    LocalDate periodStart = start;
-                    LocalDate periodEnd = budgetVos.get(0).getYearMonth().withDayOfMonth(budgetVos.get(0).getYearMonth().lengthOfMonth()).plusDays(1L);
-                    int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd);
-                    dayCountsEachMonth.add(days);
+                    periodStart = start;
+                    periodEnd = budgetVos.get(0).getYearMonth().withDayOfMonth(budgetVos.get(0).getYearMonth().lengthOfMonth()).plusDays(1L);
                 } else if (i == budgetVos.size() - 1) {
-                    LocalDate periodStart = LocalDate.of(end.getYear(), end.getMonth(), 1);
-                    LocalDate periodEnd = end.plusDays(1L);
-                    int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd);
-                    dayCountsEachMonth.add(days);
+                    periodStart = LocalDate.of(end.getYear(), end.getMonth(), 1);
+                    periodEnd = end.plusDays(1L);
                 } else {
-                    LocalDate periodStart = LocalDate.of(budgetVos.get(i).getYearMonth().getYear(), budgetVos.get(i).getYearMonth().getMonth(), 1);
-                    LocalDate periodEnd = LocalDate.of(budgetVos.get(i).getYearMonth().getYear(), budgetVos.get(i).getYearMonth().getMonth(), budgetVos.get(i).getYearMonth().lengthOfMonth()).plusDays(1L);
-                    int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd);
-                    dayCountsEachMonth.add(days);
+                    periodStart = LocalDate.of(budgetVos.get(i).getYearMonth().getYear(), budgetVos.get(i).getYearMonth().getMonth(), 1);
+                    periodEnd = LocalDate.of(budgetVos.get(i).getYearMonth().getYear(), budgetVos.get(i).getYearMonth().getMonth(), budgetVos.get(i).getYearMonth().lengthOfMonth()).plusDays(1L);
                 }
+                int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd);
+                dayCountsEachMonth.add(days);
             }
         }
 
