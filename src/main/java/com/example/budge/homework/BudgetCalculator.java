@@ -27,13 +27,15 @@ public class BudgetCalculator {
                     .build();
             Period period = new Period(start, end);
             double overlappingAmount;
+            int days;
             if (period.getStart().isAfter(budget.getEndDay()) || period.getEnd().isBefore(budget.getStartDay())) {
-                overlappingAmount = 0d;
+                days = 0;
+                overlappingAmount = days * budget.getDailyAmount();
             } else {
                 LocalDate periodStart = period.getStart().isAfter(budget.getStartDay()) ? period.getStart() : budget.getStartDay();
                 LocalDate periodEnd = period.getEnd().isBefore(budget.getEndDay()) ? period.getEnd() : budget.getEndDay();
 
-                int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
+                days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
                 overlappingAmount = days * budget.getDailyAmount();
             }
             sum += overlappingAmount;
