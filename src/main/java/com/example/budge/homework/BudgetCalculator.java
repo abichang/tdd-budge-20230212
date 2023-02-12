@@ -9,8 +9,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 @Slf4j
 public class BudgetCalculator {
 
@@ -36,12 +34,11 @@ public class BudgetCalculator {
         }
 
 
-        List<Double> priceUnitEachMonth = budgets
-                .stream()
-                .map(budgetVo -> {
-                    return budgetVo.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
-                })
-                .collect(toList());
+        List<Double> priceUnitEachMonth = new ArrayList<>();
+        for (BudgetVo budgetVo : budgets) {
+            Double aDouble = budgetVo.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
+            priceUnitEachMonth.add(aDouble);
+        }
 
         List<Integer> dayCountsEachMonth = new ArrayList<>();
         for (BudgetVo budget : budgets) {
