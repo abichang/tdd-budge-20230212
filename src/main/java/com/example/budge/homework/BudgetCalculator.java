@@ -3,7 +3,6 @@ package com.example.budge.homework;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
-import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
 @Slf4j
@@ -21,16 +20,12 @@ public class BudgetCalculator {
         double sum = 0.0;
         Period period = new Period(start, end);
         for (Budget budgetEntity : budgetRepo.getAll()) {
-            BudgetVo budget = toVo(df, budgetEntity);
+            BudgetVo budget = budgetEntity.toVo(df);
 
             sum += budget.getOverlappingAmount(period);
         }
 
         return sum;
-    }
-
-    private static BudgetVo toVo(DateTimeFormatter df, Budget budgetEntity) {
-        return new BudgetVo(YearMonth.parse(budgetEntity.getYearMonth(), df), budgetEntity.getAmount());
     }
 
 }
