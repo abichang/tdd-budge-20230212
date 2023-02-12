@@ -49,7 +49,8 @@ public class BudgetCalculator {
             dayCountsEachMonth.add(days);
         } else {
             for (int i = 0; i < budgetVos.size(); i++) {
-                YearMonth currentBudgetYearMonth = budgetVos.get(i).getYearMonth();
+                BudgetVo budgetVo = budgetVos.get(i);
+                YearMonth currentBudgetYearMonth = budgetVo.getYearMonth();
 
                 LocalDate periodStart;
                 LocalDate periodEnd;
