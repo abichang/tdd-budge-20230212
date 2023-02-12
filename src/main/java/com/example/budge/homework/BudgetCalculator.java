@@ -21,7 +21,7 @@ public class BudgetCalculator {
         double sum = 0.0;
         Period period = new Period(start, end);
         for (Budget budgetEntity : budgetRepo.getAll()) {
-            BudgetVo budget = toVo(budgetEntity);
+            BudgetVo budget = toVo(df, budgetEntity);
 
             sum += budget.getOverlappingAmount(period);
         }
@@ -29,7 +29,7 @@ public class BudgetCalculator {
         return sum;
     }
 
-    private BudgetVo toVo(Budget budgetEntity) {
+    private static BudgetVo toVo(DateTimeFormatter df, Budget budgetEntity) {
         return new BudgetVo(YearMonth.parse(budgetEntity.getYearMonth(), df), budgetEntity.getAmount());
     }
 
