@@ -48,6 +48,8 @@ public class BudgetCalculator {
             int days = (int) ChronoUnit.DAYS.between(start, end.plusDays(1L));
             dayCountsEachMonth.add(days);
         } else {
+
+
             for (int i = 0; i < budgetVos.size(); i++) {
                 BudgetVo budgetVo = budgetVos.get(i);
                 YearMonth currentBudgetYearMonth = budgetVo.getYearMonth();
@@ -56,15 +58,15 @@ public class BudgetCalculator {
                 LocalDate periodEnd;
                 if (i == 0) {
                     periodStart = start;
-                    periodEnd = LocalDate.of(currentBudgetYearMonth.getYear(), currentBudgetYearMonth.getMonth(), currentBudgetYearMonth.lengthOfMonth()).plusDays(1L);
+                    periodEnd = LocalDate.of(currentBudgetYearMonth.getYear(), currentBudgetYearMonth.getMonth(), currentBudgetYearMonth.lengthOfMonth());
                 } else if (i == budgetVos.size() - 1) {
                     periodStart = LocalDate.of(end.getYear(), end.getMonth(), 1);
-                    periodEnd = end.plusDays(1L);
+                    periodEnd = end;
                 } else {
                     periodStart = LocalDate.of(currentBudgetYearMonth.getYear(), currentBudgetYearMonth.getMonth(), 1);
-                    periodEnd = LocalDate.of(currentBudgetYearMonth.getYear(), currentBudgetYearMonth.getMonth(), currentBudgetYearMonth.lengthOfMonth()).plusDays(1L);
+                    periodEnd = LocalDate.of(currentBudgetYearMonth.getYear(), currentBudgetYearMonth.getMonth(), currentBudgetYearMonth.lengthOfMonth());
                 }
-                int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd);
+                int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
                 dayCountsEachMonth.add(days);
             }
         }
