@@ -33,9 +33,8 @@ public class BudgetCalculator {
                 LocalDate periodStart = period.getStart().isAfter(budget.getStartDay()) ? period.getStart() : budget.getStartDay();
                 LocalDate periodEnd = period.getEnd().isBefore(budget.getEndDay()) ? period.getEnd() : budget.getEndDay();
 
-                double dailyAmount = budget.getDailyAmount();
                 int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
-                overlappingAmount = days * dailyAmount;
+                overlappingAmount = days * budget.getDailyAmount();
             }
             sum += overlappingAmount;
         }
