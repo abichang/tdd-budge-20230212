@@ -24,19 +24,19 @@ public class BudgetCalculator {
     public Double query(LocalDate start, LocalDate end) {
         List<YearMonth> monthRange = getMonthRange(start, end);
 
-        List<BudgetVo> budgetVos = new ArrayList<>();
+        List<BudgetVo> budgets = new ArrayList<>();
         for (Budget budget : budgetRepo.getAll()) {
             BudgetVo vo = BudgetVo.builder()
                     .yearMonth(YearMonth.parse(budget.getYearMonth(), df))
                     .amount(budget.getAmount())
                     .build();
             if (monthRange.contains(vo.getYearMonth())) {
-                budgetVos.add(vo);
+                budgets.add(vo);
             }
         }
 
 
-        List<Double> priceUnitEachMonth = budgetVos
+        List<Double> priceUnitEachMonth = budgets
                 .stream()
                 .map(budgetVo -> {
                     return budgetVo.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
@@ -44,21 +44,21 @@ public class BudgetCalculator {
                 .collect(toList());
 
         List<Integer> dayCountsEachMonth = new ArrayList<>();
-        if (budgetVos.size() == 1) {
+        if (budgets.size() == 1) {
             int days = (int) ChronoUnit.DAYS.between(start, end.plusDays(1L));
             dayCountsEachMonth.add(days);
         } else {
 
 
-            for (int i = 0; i < budgetVos.size(); i++) {
-                BudgetVo budget = budgetVos.get(i);
+            for (int i = 0; i < budgets.size(); i++) {
+                BudgetVo budget = budgets.get(i);
 
                 LocalDate periodStart;
                 LocalDate periodEnd;
                 if (i == 0) {
                     periodStart = start;
                     periodEnd = budget.getEndDay();
-                } else if (i == budgetVos.size() - 1) {
+                } else if (i == budgets.size() - 1) {
                     periodStart = budget.getYearMonth().atDay(1);
                     periodEnd = end;
                 } else {
