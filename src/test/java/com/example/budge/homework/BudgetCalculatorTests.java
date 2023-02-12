@@ -18,7 +18,7 @@ public class BudgetCalculatorTests {
     @Test
     void testSingleDayInSingleMonth() {
         List<Budget> budges = Arrays.asList(
-                budget("202101", 31)
+                new Budget("202101", 31)
         );
         when(budgetRepo.getAll()).thenReturn(budges);
 
@@ -29,14 +29,10 @@ public class BudgetCalculatorTests {
         Assertions.assertThat(budgetCalculator.query(start, end)).isEqualTo(1);
     }
 
-    private static Budget budget(String yearMonth, int amount) {
-        return new Budget(yearMonth, amount);
-    }
-
     @Test
     void testMultiDayInSingleMonth() {
         List<Budget> budges = Arrays.asList(
-                budget("202102", 56)
+                new Budget("202102", 56)
         );
         when(budgetRepo.getAll()).thenReturn(budges);
 
@@ -50,9 +46,9 @@ public class BudgetCalculatorTests {
     @Test
     void testMultiDayInMultiMonth() {
         List<Budget> budges = Arrays.asList(
-                budget("202102", 28),
-                budget("202103", 31 * 2),
-                budget("202104", 30 * 3)
+                new Budget("202102", 28),
+                new Budget("202103", 31 * 2),
+                new Budget("202104", 30 * 3)
         );
         when(budgetRepo.getAll()).thenReturn(budges);
 
@@ -67,11 +63,11 @@ public class BudgetCalculatorTests {
     @Test
     void testMultiDayInMultiMonth2() {
         List<Budget> budges = Arrays.asList(
-                budget("202102", 28),
-                budget("202103", 31 * 2),
-                budget("202104", 30 * 3),
-                budget("202105", 31 * 4),
-                budget("202106", 30 * 5)
+                new Budget("202102", 28),
+                new Budget("202103", 31 * 2),
+                new Budget("202104", 30 * 3),
+                new Budget("202105", 31 * 4),
+                new Budget("202106", 30 * 5)
         );
         when(budgetRepo.getAll()).thenReturn(budges);
 
