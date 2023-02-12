@@ -59,10 +59,10 @@ public class BudgetCalculator {
                     periodStart = start;
                     periodEnd = budget.getEndDay();
                 } else if (i == budgets.size() - 1) {
-                    periodStart = budget.getYearMonth().atDay(1);
+                    periodStart = budget.getStartDay();
                     periodEnd = end;
                 } else {
-                    periodStart = budget.getYearMonth().atDay(1);
+                    periodStart = budget.getStartDay();
                     periodEnd = budget.getEndDay();
                 }
                 int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
