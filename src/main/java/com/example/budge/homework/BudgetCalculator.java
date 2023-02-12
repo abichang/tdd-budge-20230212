@@ -25,26 +25,22 @@ public class BudgetCalculator {
                     .yearMonth(YearMonth.parse(budgetEntity.getYearMonth(), df))
                     .amount(budgetEntity.getAmount())
                     .build();
-            double overlappingAmount = getOverlappingAmount(new Period(start, end), budget);
+            Period period = new Period(start, end);
+            double overlappingAmount;
+            if (period.getStart().isAfter(budget.getEndDay()) || period.getEnd().isBefore(budget.getStartDay())) {
+                overlappingAmount = 0d;
+            } else {
+                LocalDate periodStart = period.getStart().isAfter(budget.getStartDay()) ? period.getStart() : budget.getStartDay();
+                LocalDate periodEnd = period.getEnd().isBefore(budget.getEndDay()) ? period.getEnd() : budget.getEndDay();
+
+                double dailyAmount = budget.getDailyAmount();
+                int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
+                overlappingAmount = days * dailyAmount;
+            }
             sum += overlappingAmount;
         }
 
         return sum;
-    }
-
-    private static double getOverlappingAmount(Period period, BudgetVo budget) {
-        double overlappingAmount;
-        if (period.getStart().isAfter(budget.getEndDay()) || period.getEnd().isBefore(budget.getStartDay())) {
-            overlappingAmount = 0d;
-        } else {
-            LocalDate periodStart = period.getStart().isAfter(budget.getStartDay()) ? period.getStart() : budget.getStartDay();
-            LocalDate periodEnd = period.getEnd().isBefore(budget.getEndDay()) ? period.getEnd() : budget.getEndDay();
-
-            double dailyAmount = budget.getDailyAmount();
-            int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
-            overlappingAmount = days * dailyAmount;
-        }
-        return overlappingAmount;
     }
 
 }
