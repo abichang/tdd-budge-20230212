@@ -6,8 +6,6 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 public class BudgetCalculator {
@@ -20,7 +18,6 @@ public class BudgetCalculator {
     }
 
     public Double query(LocalDate start, LocalDate end) {
-        List<YearMonth> monthRange = getMonthRange(start, end);
 
         double sum = 0.0;
         for (Budget budgetEntity : budgetRepo.getAll()) {
@@ -39,19 +36,6 @@ public class BudgetCalculator {
         }
 
         return sum;
-    }
-
-    private List<YearMonth> getMonthRange(LocalDate start, LocalDate end) {
-
-        YearMonth endYearMonth = YearMonth.from(end);
-
-        List<YearMonth> results = new ArrayList<>();
-        for (YearMonth current = YearMonth.from(start);
-             current.isBefore(endYearMonth) || current.equals(endYearMonth);
-             current = current.plusMonths(1L)) {
-            results.add(current);
-        }
-        return results;
     }
 
 }
