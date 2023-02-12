@@ -27,7 +27,13 @@ public class BudgetCalculator {
     public Double query(LocalDate start, LocalDate end) {
         List<String> monthRange = getMonthRange(start, end);
 
-        List<BudgetVo> budgetVos = makeBudgetVO(monthRange);
+        List<BudgetVo> budgetVos = budgetRepo.getAll().stream()
+                .map(budget1 -> BudgetVo.builder()
+                        .yearMonth(LocalDate.parse(budget1.getYearMonth() + "01", df2))
+                        .amount(budget1.getAmount())
+                        .build())
+                .filter(budgetVo1 -> monthRange.contains(df.format(budgetVo1.getYearMonth())))
+                .collect(Collectors.toList());
 
         List<Integer> dayCountsEachMonth = new ArrayList<>();
         if (budgetVos.size() == 1) {
@@ -90,13 +96,4 @@ public class BudgetCalculator {
         return monthRange;
     }
 
-    private List<BudgetVo> makeBudgetVO(List<String> monthRange) {
-        return budgetRepo.getAll().stream()
-                .map(budget -> BudgetVo.builder()
-                        .yearMonth(LocalDate.parse(budget.getYearMonth() + "01", df2))
-                        .amount(budget.getAmount())
-                        .build())
-                .filter(budgetVo -> monthRange.contains(df.format(budgetVo.getYearMonth())))
-                .collect(Collectors.toList());
-    }
 }
