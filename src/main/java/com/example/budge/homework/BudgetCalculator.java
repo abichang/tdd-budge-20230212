@@ -15,10 +15,9 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 public class BudgetCalculator {
 
+    private final BudgetRepo budgetRepo;
     private DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMM");
     private DateTimeFormatter df2 = DateTimeFormatter.ofPattern("yyyyMMdd");
-
-    private BudgetRepo budgetRepo;
 
     public BudgetCalculator(BudgetRepo budgetRepo) {
         this.budgetRepo = budgetRepo;
