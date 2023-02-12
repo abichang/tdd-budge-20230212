@@ -1,20 +1,19 @@
 package com.example.budge.homework;
 
-import lombok.Data;
+import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
-@Data
+@Getter
 public class Budget {
 
     private static final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMM");
+    
     private final Period period;
-
-    private YearMonth yearMonth;
-
-    private Integer amount;
+    private final YearMonth yearMonth;
+    private final Integer amount;
 
     public Budget(String yearMonth, Integer amount) {
         this.yearMonth = YearMonth.parse(yearMonth, df);
