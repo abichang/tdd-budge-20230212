@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class Budget {
 
     private static final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMM");
-    
+
     private final Period period;
     private final YearMonth yearMonth;
     private final Integer amount;
