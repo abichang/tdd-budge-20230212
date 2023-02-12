@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +29,7 @@ public class BudgetCalculator {
 
         // get iterator months
         // (202101, 202103) -> (01, 02, 03)
-        LocalDate tmp = LocalDate.of(start.getYear(), start.getMonthValue(), 1);
+        LocalDate tmp = start.with(ChronoField.DAY_OF_MONTH, 1);
         List<String> monthRange = new ArrayList<>();
         while (!tmp.isAfter(end)) {
             monthRange.add(startY.format(df));
