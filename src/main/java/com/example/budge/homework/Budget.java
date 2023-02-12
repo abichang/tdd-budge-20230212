@@ -1,12 +1,10 @@
 package com.example.budge.homework;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
-@Builder(toBuilder = true)
 @Data
 public class Budget {
 
