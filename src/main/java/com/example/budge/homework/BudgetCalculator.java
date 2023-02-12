@@ -35,17 +35,19 @@ public class BudgetCalculator {
             dayCountsEachMonth.add(daysDifferent);
         } else {
             for (int i = 0; i < budgetVos.size(); i++) {
+                LocalDate currentBudgetYearMonth = budgetVos.get(i).getYearMonth();
+
                 LocalDate periodStart;
                 LocalDate periodEnd;
                 if (i == 0) {
                     periodStart = start;
-                    periodEnd = budgetVos.get(i).getYearMonth().withDayOfMonth(budgetVos.get(i).getYearMonth().lengthOfMonth()).plusDays(1L);
+                    periodEnd = currentBudgetYearMonth.withDayOfMonth(currentBudgetYearMonth.lengthOfMonth()).plusDays(1L);
                 } else if (i == budgetVos.size() - 1) {
                     periodStart = LocalDate.of(end.getYear(), end.getMonth(), 1);
                     periodEnd = end.plusDays(1L);
                 } else {
-                    periodStart = LocalDate.of(budgetVos.get(i).getYearMonth().getYear(), budgetVos.get(i).getYearMonth().getMonth(), 1);
-                    periodEnd = LocalDate.of(budgetVos.get(i).getYearMonth().getYear(), budgetVos.get(i).getYearMonth().getMonth(), budgetVos.get(i).getYearMonth().lengthOfMonth()).plusDays(1L);
+                    periodStart = LocalDate.of(currentBudgetYearMonth.getYear(), currentBudgetYearMonth.getMonth(), 1);
+                    periodEnd = LocalDate.of(currentBudgetYearMonth.getYear(), currentBudgetYearMonth.getMonth(), currentBudgetYearMonth.lengthOfMonth()).plusDays(1L);
                 }
                 int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd);
                 dayCountsEachMonth.add(days);
