@@ -51,8 +51,8 @@ public class BudgetCalculator {
                 .filter(budgetVo -> monthRange.contains(df.format(budgetVo.getYearMonth())))
                 .collect(toList())
                 .stream()
-                .map(v -> {
-                    return v.getAmount() / (double) (v.getYearMonth().lengthOfMonth());
+                .map(budgetVo -> {
+                    return budgetVo.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
                 })
                 .collect(toList());
 
