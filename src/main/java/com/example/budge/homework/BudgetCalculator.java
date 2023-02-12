@@ -37,16 +37,7 @@ public class BudgetCalculator {
             }
         }
 
-        List<BudgetVo> list = new ArrayList<>();
-        for (Budget budget : budgetRepo.getAll()) {
-            BudgetVo build = BudgetVo.builder()
-                    .yearMonth(LocalDate.parse(budget.getYearMonth() + "01", df2))
-                    .amount(budget.getAmount())
-                    .build();
-            if (monthRange.contains(df.format(build.getYearMonth()))) {
-                list.add(build);
-            }
-        }
+        
         List<Double> priceUnitEachMonth = budgetVos
                 .stream()
                 .map(budgetVo -> {
