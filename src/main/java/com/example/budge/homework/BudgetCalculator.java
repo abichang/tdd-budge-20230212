@@ -25,17 +25,7 @@ public class BudgetCalculator {
     }
 
     public Double query(LocalDate start, LocalDate end) {
-        YearMonth startY = YearMonth.from(start);
-
-        // get iterator months
-        // (202101, 202103) -> (01, 02, 03)
-        LocalDate tmp = start.with(ChronoField.DAY_OF_MONTH, 1);
-        List<String> monthRange = new ArrayList<>();
-        while (!tmp.isAfter(end)) {
-            monthRange.add(startY.format(df));
-            tmp = tmp.plusMonths(1);
-            startY = YearMonth.from(tmp);
-        }
+        List<String> monthRange = getMonthRange(start, end);
 
         List<BudgetVo> budgetVos = budgetRepo.getAll().stream()
                 .map(budget -> BudgetVo.builder()
@@ -79,5 +69,20 @@ public class BudgetCalculator {
         }
 
         return rtn;
+    }
+
+    private List<String> getMonthRange(LocalDate start, LocalDate end) {
+        YearMonth startY = YearMonth.from(start);
+
+        // get iterator months
+        // (202101, 202103) -> (01, 02, 03)
+        LocalDate tmp = start.with(ChronoField.DAY_OF_MONTH, 1);
+        List<String> monthRange = new ArrayList<>();
+        while (!tmp.isAfter(end)) {
+            monthRange.add(startY.format(df));
+            tmp = tmp.plusMonths(1);
+            startY = YearMonth.from(tmp);
+        }
+        return monthRange;
     }
 }
