@@ -23,25 +23,20 @@ public class BudgetCalculator {
         List<YearMonth> monthRange = getMonthRange(start, end);
 
         List<BudgetVo> budgets = new ArrayList<>();
+        double sum = 0.0;
         for (Budget budgetEntity : budgetRepo.getAll()) {
             BudgetVo budget = BudgetVo.builder()
                     .yearMonth(YearMonth.parse(budgetEntity.getYearMonth(), df))
                     .amount(budgetEntity.getAmount())
                     .build();
             if (monthRange.contains(budget.getYearMonth())) {
-                budgets.add(budget);
+                LocalDate periodStart = start.isAfter(budget.getStartDay()) ? start : budget.getStartDay();
+                LocalDate periodEnd = end.isBefore(budget.getEndDay()) ? end : budget.getEndDay();
+
+                double dailyAmount = budget.getDailyAmount();
+                int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
+                sum += days * dailyAmount;
             }
-        }
-
-
-        double sum = 0.0;
-        for (BudgetVo budget : budgets) {
-            LocalDate periodStart = start.isAfter(budget.getStartDay()) ? start : budget.getStartDay();
-            LocalDate periodEnd = end.isBefore(budget.getEndDay()) ? end : budget.getEndDay();
-
-            double dailyAmount = budget.getDailyAmount();
-            int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
-            sum += days * dailyAmount;
         }
 
         return sum;
