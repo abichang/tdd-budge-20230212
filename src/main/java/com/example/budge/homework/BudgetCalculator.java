@@ -17,9 +17,9 @@ public class BudgetCalculator {
 
         double sum = 0.0;
         Period period = new Period(start, end);
-        for (Budget budgetEntity : budgetRepo.getAll()) {
+        for (Budget budget : budgetRepo.getAll()) {
 
-            sum += budgetEntity.toVo().getOverlappingAmount(period);
+            sum += budget.toVo().getOverlappingAmount(period);
         }
 
         return sum;
