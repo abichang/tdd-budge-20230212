@@ -25,14 +25,18 @@ public class BudgetCalculator {
                     .yearMonth(YearMonth.parse(budgetEntity.getYearMonth(), df))
                     .amount(budgetEntity.getAmount())
                     .build();
-            if (!(start.isAfter(budget.getEndDay()) || end.isBefore(budget.getStartDay()))) {
+            double overlappingAmount;
+            if (start.isAfter(budget.getEndDay()) || end.isBefore(budget.getStartDay())) {
+                overlappingAmount = 0d;
+            } else {
                 LocalDate periodStart = start.isAfter(budget.getStartDay()) ? start : budget.getStartDay();
                 LocalDate periodEnd = end.isBefore(budget.getEndDay()) ? end : budget.getEndDay();
 
                 double dailyAmount = budget.getDailyAmount();
                 int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
-                sum += days * dailyAmount;
+                overlappingAmount = days * dailyAmount;
             }
+            sum += overlappingAmount;
         }
 
         return sum;
