@@ -20,6 +20,10 @@ public class Budget {
 
     private Integer amount;
 
+    public long getOverlappingAmount(Period period) {
+        return toVo().getOverlappingAmount(period);
+    }
+
     public BudgetVo toVo() {
         return new BudgetVo(YearMonth.parse(getYearMonth(), df), getAmount());
     }

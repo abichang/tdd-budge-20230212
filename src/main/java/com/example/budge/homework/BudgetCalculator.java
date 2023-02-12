@@ -17,12 +17,8 @@ public class BudgetCalculator {
         Period period = new Period(start, end);
         return budgetRepo.getAll()
                 .stream()
-                .mapToDouble(budget -> getOverlappingAmount(period, budget))
+                .mapToDouble(budget -> budget.getOverlappingAmount(period))
                 .sum();
-    }
-
-    private static long getOverlappingAmount(Period period, Budget budget) {
-        return budget.toVo().getOverlappingAmount(period);
     }
 
 }
