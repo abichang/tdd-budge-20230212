@@ -23,13 +23,13 @@ public class BudgetCalculator {
         List<YearMonth> monthRange = getMonthRange(start, end);
 
         List<BudgetVo> budgets = new ArrayList<>();
-        for (Budget budget : budgetRepo.getAll()) {
-            BudgetVo vo = BudgetVo.builder()
-                    .yearMonth(YearMonth.parse(budget.getYearMonth(), df))
-                    .amount(budget.getAmount())
+        for (Budget budgetEntity : budgetRepo.getAll()) {
+            BudgetVo budget = BudgetVo.builder()
+                    .yearMonth(YearMonth.parse(budgetEntity.getYearMonth(), df))
+                    .amount(budgetEntity.getAmount())
                     .build();
-            if (monthRange.contains(vo.getYearMonth())) {
-                budgets.add(vo);
+            if (monthRange.contains(budget.getYearMonth())) {
+                budgets.add(budget);
             }
         }
 
