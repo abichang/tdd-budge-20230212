@@ -9,12 +9,10 @@ public class BudgetVo {
 
     private final YearMonth yearMonth;
     private final Integer amount;
-    private final Period period;
 
     public BudgetVo(YearMonth yearMonth, Integer amount) {
         this.yearMonth = yearMonth;
         this.amount = amount;
-        this.period = new Period(this.yearMonth.atDay(1), this.yearMonth.atEndOfMonth());
     }
 
     public long getOverlappingAmount(Period period) {
