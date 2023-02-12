@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.YearMonth;
 
 @Builder(toBuilder = true)
 @Data
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BudgetVo {
 
-    private LocalDate yearMonth;
+    private YearMonth yearMonth;
 
     private Integer amount;
 }

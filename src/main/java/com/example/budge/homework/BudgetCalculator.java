@@ -29,7 +29,7 @@ public class BudgetCalculator {
         List<BudgetVo> budgetVos = new ArrayList<>();
         for (Budget budget : budgetRepo.getAll()) {
             BudgetVo vo = BudgetVo.builder()
-                    .yearMonth(LocalDate.parse(budget.getYearMonth() + "01", df2))
+                    .yearMonth(YearMonth.parse(budget.getYearMonth(), df))
                     .amount(budget.getAmount())
                     .build();
             if (monthRange.contains(df.format(vo.getYearMonth()))) {
@@ -51,13 +51,13 @@ public class BudgetCalculator {
             dayCountsEachMonth.add(daysDifferent);
         } else {
             for (int i = 0; i < budgetVos.size(); i++) {
-                LocalDate currentBudgetYearMonth = budgetVos.get(i).getYearMonth();
+                YearMonth currentBudgetYearMonth = budgetVos.get(i).getYearMonth();
 
                 LocalDate periodStart;
                 LocalDate periodEnd;
                 if (i == 0) {
                     periodStart = start;
-                    periodEnd = currentBudgetYearMonth.withDayOfMonth(currentBudgetYearMonth.lengthOfMonth()).plusDays(1L);
+                    periodEnd = LocalDate.of(currentBudgetYearMonth.getYear(), currentBudgetYearMonth.getMonth(), currentBudgetYearMonth.lengthOfMonth()).plusDays(1L);
                 } else if (i == budgetVos.size() - 1) {
                     periodStart = LocalDate.of(end.getYear(), end.getMonth(), 1);
                     periodEnd = end.plusDays(1L);
