@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class Budget {
 
     private static final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMM");
+    private final Period period;
 
     private YearMonth yearMonth;
 
@@ -17,11 +18,11 @@ public class Budget {
     public Budget(String yearMonth, Integer amount) {
         this.yearMonth = YearMonth.parse(yearMonth, df);
         this.amount = amount;
+        this.period = new Period(this.yearMonth.atDay(1), this.yearMonth.atEndOfMonth());
     }
 
     public long getOverlappingAmount(Period period) {
-        Period budgetPeriod = new Period(this.yearMonth.atDay(1), this.yearMonth.atEndOfMonth());
-        return period.getOverlappingDays(budgetPeriod) * getDailyAmount();
+        return period.getOverlappingDays(this.period) * getDailyAmount();
     }
 
     private int getDailyAmount() {
