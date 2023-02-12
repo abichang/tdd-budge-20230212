@@ -18,6 +18,10 @@ public class BudgetVo {
 
     private Integer amount;
 
+    public int getDailyAmount() {
+        return this.amount / this.yearMonth.lengthOfMonth();
+    }
+
     public LocalDate getStartDay() {
         return this.yearMonth.atDay(1);
     }
