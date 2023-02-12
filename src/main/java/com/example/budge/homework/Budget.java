@@ -21,16 +21,15 @@ public class Budget {
     private Integer amount;
 
     public long getOverlappingAmount(Period period) {
-        int dailyAmount = getDailyAmount();
         Period budgetPeriod = new Period(parseYearMonth().atDay(1), parseYearMonth().atEndOfMonth());
-        return period.getOverlappingDays(budgetPeriod) * dailyAmount;
-    }
-
-    private int getDailyAmount() {
-        return this.amount / parseYearMonth().lengthOfMonth();
+        return period.getOverlappingDays(budgetPeriod) * getDailyAmount();
     }
 
     private YearMonth parseYearMonth() {
         return YearMonth.parse(this.yearMonth, df);
+    }
+
+    private int getDailyAmount() {
+        return this.amount / parseYearMonth().lengthOfMonth();
     }
 }
