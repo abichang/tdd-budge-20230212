@@ -14,15 +14,11 @@ public class BudgetCalculator {
     }
 
     public Double query(LocalDate start, LocalDate end) {
-
-        double sum = 0.0;
         Period period = new Period(start, end);
-        for (Budget budget : budgetRepo.getAll()) {
-
-            sum += budget.toVo().getOverlappingAmount(period);
-        }
-
-        return sum;
+        return budgetRepo.getAll()
+                .stream()
+                .mapToDouble(budget -> budget.toVo().getOverlappingAmount(period))
+                .sum();
     }
 
 }
