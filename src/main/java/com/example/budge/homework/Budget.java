@@ -29,8 +29,4 @@ public class Budget {
     private YearMonth parseYearMonth() {
         return YearMonth.parse(this.yearMonth, df);
     }
-
-    public BudgetVo toVo() {
-        return new BudgetVo(YearMonth.parse(getYearMonth(), df), getAmount());
-    }
 }
