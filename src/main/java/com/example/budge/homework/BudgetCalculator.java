@@ -44,19 +44,12 @@ public class BudgetCalculator {
                 .collect(toList());
 
         List<Integer> dayCountsEachMonth = new ArrayList<>();
-        if (budgets.size() == 1) {
-            int days = (int) ChronoUnit.DAYS.between(start, end.plusDays(1L));
+        for (BudgetVo budget : budgets) {
+            LocalDate periodStart = start.isAfter(budget.getStartDay()) ? start : budget.getStartDay();
+            LocalDate periodEnd = end.isBefore(budget.getEndDay()) ? end : budget.getEndDay();
+
+            int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
             dayCountsEachMonth.add(days);
-        } else {
-
-
-            for (BudgetVo budget : budgets) {
-                LocalDate periodStart = start.isAfter(budget.getStartDay()) ? start : budget.getStartDay();
-                LocalDate periodEnd = end.isBefore(budget.getEndDay()) ? end : budget.getEndDay();
-
-                int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
-                dayCountsEachMonth.add(days);
-            }
         }
 
 
