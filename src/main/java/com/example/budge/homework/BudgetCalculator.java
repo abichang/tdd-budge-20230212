@@ -79,15 +79,13 @@ public class BudgetCalculator {
 
     private List<YearMonth> getMonthRange(LocalDate start, LocalDate end) {
 
-        YearMonth startYearMonth = YearMonth.from(start);
         YearMonth endYearMonth = YearMonth.from(end);
 
-        YearMonth current = startYearMonth;
         List<YearMonth> results = new ArrayList<>();
-        while (current.isBefore(endYearMonth)
-                || current.equals(endYearMonth)) {
+        for (YearMonth current = YearMonth.from(start);
+             current.isBefore(endYearMonth) || current.equals(endYearMonth);
+             current = current.plusMonths(1L)) {
             results.add(current);
-            current = current.plusMonths(1);
         }
         return results;
     }
