@@ -36,7 +36,9 @@ public class BudgetCalculator {
         } else {
             for (int i = 0; i < budgetVos.size(); i++) {
                 if (i == 0) {
-                    int days = (int) ChronoUnit.DAYS.between(start, budgetVos.get(0).getYearMonth().withDayOfMonth(budgetVos.get(0).getYearMonth().lengthOfMonth()).plusDays(1L));
+                    LocalDate periodStart = start;
+                    LocalDate periodEnd = budgetVos.get(0).getYearMonth().withDayOfMonth(budgetVos.get(0).getYearMonth().lengthOfMonth()).plusDays(1L);
+                    int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd);
                     dayCountsEachMonth.add(days);
                 } else if (i == budgetVos.size() - 1) {
                     int days = (int) ChronoUnit.DAYS.between(LocalDate.of(end.getYear(), end.getMonth(), 1), end.plusDays(1L));
