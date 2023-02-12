@@ -30,7 +30,7 @@ public class BudgetCalculatorTests {
     }
 
     private static Budget budget(String yearMonth, int amount) {
-        return Budget.builder().yearMonth(yearMonth).amount(amount).build();
+        return new Budget(yearMonth, amount);
     }
 
     @Test
