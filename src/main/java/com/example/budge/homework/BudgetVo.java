@@ -18,8 +18,8 @@ public class BudgetVo {
 
     private Integer amount;
 
-    public int getDailyAmount() {
-        return this.amount / this.yearMonth.lengthOfMonth();
+    public Period getPeriod() {
+        return new Period(getStartDay(), getEndDay());
     }
 
     public LocalDate getStartDay() {
@@ -28,5 +28,9 @@ public class BudgetVo {
 
     public LocalDate getEndDay() {
         return this.yearMonth.atEndOfMonth();
+    }
+
+    public int getDailyAmount() {
+        return this.amount / this.yearMonth.lengthOfMonth();
     }
 }
