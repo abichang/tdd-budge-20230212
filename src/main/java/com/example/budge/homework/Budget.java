@@ -21,7 +21,7 @@ public class Budget {
     private Integer amount;
 
     public long getOverlappingAmount(Period period) {
-        YearMonth yearMonth1 = toVo().getYearMonth();
+        YearMonth yearMonth1 = YearMonth.parse(getYearMonth(), df);
         int dailyAmount = toVo().getAmount() / yearMonth1.lengthOfMonth();
         return period.getOverlappingDays(new Period(yearMonth1.atDay(1), yearMonth1.atEndOfMonth())) * dailyAmount;
     }
