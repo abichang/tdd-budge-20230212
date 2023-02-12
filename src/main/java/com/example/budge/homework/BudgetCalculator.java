@@ -25,11 +25,15 @@ public class BudgetCalculator {
                     .amount(budgetEntity.getAmount())
                     .build();
             Period period = new Period(start, end);
-            long days = period.getOverlappingDays(new Period(budget.getStartDay(), budget.getEndDay()));
+            long days = period.getOverlappingDays(getPeriod(budget));
             sum += days * budget.getDailyAmount();
         }
 
         return sum;
+    }
+
+    private static Period getPeriod(BudgetVo budget) {
+        return new Period(budget.getStartDay(), budget.getEndDay());
     }
 
 }
