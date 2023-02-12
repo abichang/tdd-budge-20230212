@@ -18,7 +18,7 @@ public class Budget {
 
     private Integer amount;
 
-    public BudgetVo toVo(DateTimeFormatter df) {
-        return new BudgetVo(YearMonth.parse(getYearMonth(), df), getAmount());
+    public BudgetVo toVo() {
+        return new BudgetVo(YearMonth.parse(getYearMonth(), DateTimeFormatter.ofPattern("yyyyMM")), getAmount());
     }
 }
