@@ -51,19 +51,19 @@ public class BudgetCalculator {
 
 
             for (int i = 0; i < budgetVos.size(); i++) {
-                BudgetVo budgetVo = budgetVos.get(i);
+                BudgetVo budget = budgetVos.get(i);
 
                 LocalDate periodStart;
                 LocalDate periodEnd;
                 if (i == 0) {
                     periodStart = start;
-                    periodEnd = budgetVo.getEndDay();
+                    periodEnd = budget.getEndDay();
                 } else if (i == budgetVos.size() - 1) {
-                    periodStart = budgetVo.getYearMonth().atDay(1);
+                    periodStart = budget.getYearMonth().atDay(1);
                     periodEnd = end;
                 } else {
-                    periodStart = budgetVo.getYearMonth().atDay(1);
-                    periodEnd = budgetVo.getEndDay();
+                    periodStart = budget.getYearMonth().atDay(1);
+                    periodEnd = budget.getEndDay();
                 }
                 int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
                 dayCountsEachMonth.add(days);
