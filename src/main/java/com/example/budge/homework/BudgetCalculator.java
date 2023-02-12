@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class BudgetCalculator {
     }
 
     public Double query(LocalDate start, LocalDate end) {
-        List<String> monthRange = getMonthRange(start, end);
+        List<YearMonth> monthRange = getMonthRange(start, end);
 
         List<BudgetVo> budgetVos = new ArrayList<>();
         for (Budget budget : budgetRepo.getAll()) {
@@ -31,7 +30,7 @@ public class BudgetCalculator {
                     .yearMonth(YearMonth.parse(budget.getYearMonth(), df))
                     .amount(budget.getAmount())
                     .build();
-            if (monthRange.contains(df.format(vo.getYearMonth()))) {
+            if (monthRange.contains(vo.getYearMonth())) {
                 budgetVos.add(vo);
             }
         }
@@ -78,19 +77,19 @@ public class BudgetCalculator {
         return rtn;
     }
 
-    private List<String> getMonthRange(LocalDate start, LocalDate end) {
-        YearMonth startY = YearMonth.from(start);
+    private List<YearMonth> getMonthRange(LocalDate start, LocalDate end) {
 
-        // get iterator months
-        // (202101, 202103) -> (01, 02, 03)
-        LocalDate tmp = start.with(ChronoField.DAY_OF_MONTH, 1);
-        List<String> monthRange = new ArrayList<>();
-        while (!tmp.isAfter(end)) {
-            monthRange.add(startY.format(df));
-            tmp = tmp.plusMonths(1);
-            startY = YearMonth.from(tmp);
+        YearMonth startYearMonth = YearMonth.from(start);
+        YearMonth endYearMonth = YearMonth.from(end);
+
+        YearMonth current = startYearMonth;
+        List<YearMonth> results = new ArrayList<>();
+        while (current.isBefore(endYearMonth)
+                || current.equals(endYearMonth)) {
+            results.add(current);
+            current = current.plusMonths(1);
         }
-        return monthRange;
+        return results;
     }
 
 }
