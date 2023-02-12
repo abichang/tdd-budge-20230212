@@ -2,6 +2,7 @@ package com.example.budge.homework;
 
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
@@ -18,7 +19,15 @@ public class Budget {
     public Budget(String yearMonth, Integer amount) {
         this.yearMonth = YearMonth.parse(yearMonth, df);
         this.amount = amount;
-        this.period = new Period(this.yearMonth.atDay(1), this.yearMonth.atEndOfMonth());
+        this.period = new Period(getFirstDay(), getEndDay());
+    }
+
+    private LocalDate getFirstDay() {
+        return this.yearMonth.atDay(1);
+    }
+
+    private LocalDate getEndDay() {
+        return this.yearMonth.atEndOfMonth();
     }
 
     public long getOverlappingAmount(Period period) {
@@ -26,6 +35,10 @@ public class Budget {
     }
 
     private int getDailyAmount() {
-        return this.amount / this.yearMonth.lengthOfMonth();
+        return this.amount / getTotalDays();
+    }
+
+    private int getTotalDays() {
+        return this.yearMonth.lengthOfMonth();
     }
 }
