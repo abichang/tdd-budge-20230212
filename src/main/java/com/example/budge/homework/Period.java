@@ -1,21 +1,13 @@
 package com.example.budge.homework;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.time.LocalDate;
 
+@AllArgsConstructor
+@Getter
 public class Period {
     private final LocalDate start;
     private final LocalDate end;
-
-    public Period(LocalDate start, LocalDate end) {
-        this.start = start;
-        this.end = end;
-    }
-
-    public LocalDate getStart() {
-        return start;
-    }
-
-    public LocalDate getEnd() {
-        return end;
-    }
 }
