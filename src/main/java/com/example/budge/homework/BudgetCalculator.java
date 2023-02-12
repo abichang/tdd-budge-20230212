@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,7 +31,7 @@ public class BudgetCalculator {
 
         List<Integer> dayCountsEachMonth = new ArrayList<>();
         if (budgetVos.size() == 1) {
-            int daysDifferent = end.getDayOfMonth() - start.getDayOfMonth() + 1;
+            int daysDifferent = (int) ChronoUnit.DAYS.between(start, end.plusDays(1L));
             dayCountsEachMonth.add(daysDifferent);
         } else {
             for (int i = 0; i < budgetVos.size(); i++) {
