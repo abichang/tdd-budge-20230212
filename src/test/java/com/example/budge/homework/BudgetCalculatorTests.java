@@ -18,7 +18,7 @@ public class BudgetCalculatorTests {
     @Test
     void testSingleDayInSingleMonth() {
         List<Budget> budges = Arrays.asList(
-                Budget.builder().yearMonth("202101").amount(31).build()
+                budget("202101", 31)
         );
         when(budgetRepo.getAll()).thenReturn(budges);
 
@@ -29,10 +29,14 @@ public class BudgetCalculatorTests {
         Assertions.assertThat(budgetCalculator.query(start, end)).isEqualTo(1);
     }
 
+    private static Budget budget(String yearMonth, int amount) {
+        return Budget.builder().yearMonth(yearMonth).amount(amount).build();
+    }
+
     @Test
     void testMultiDayInSingleMonth() {
         List<Budget> budges = Arrays.asList(
-                Budget.builder().yearMonth("202102").amount(56).build()
+                budget("202102", 56)
         );
         when(budgetRepo.getAll()).thenReturn(budges);
 
@@ -46,9 +50,9 @@ public class BudgetCalculatorTests {
     @Test
     void testMultiDayInMultiMonth() {
         List<Budget> budges = Arrays.asList(
-                Budget.builder().yearMonth("202102").amount(28).build(),
-                Budget.builder().yearMonth("202103").amount(31 * 2).build(),
-                Budget.builder().yearMonth("202104").amount(30 * 3).build()
+                budget("202102", 28),
+                budget("202103", 31 * 2),
+                budget("202104", 30 * 3)
         );
         when(budgetRepo.getAll()).thenReturn(budges);
 
@@ -63,11 +67,11 @@ public class BudgetCalculatorTests {
     @Test
     void testMultiDayInMultiMonth2() {
         List<Budget> budges = Arrays.asList(
-                Budget.builder().yearMonth("202102").amount(28).build(),
-                Budget.builder().yearMonth("202103").amount(31 * 2).build(),
-                Budget.builder().yearMonth("202104").amount(30 * 3).build(),
-                Budget.builder().yearMonth("202105").amount(31 * 4).build(),
-                Budget.builder().yearMonth("202106").amount(30 * 5).build()
+                budget("202102", 28),
+                budget("202103", 31 * 2),
+                budget("202104", 30 * 3),
+                budget("202105", 31 * 4),
+                budget("202106", 30 * 5)
         );
         when(budgetRepo.getAll()).thenReturn(budges);
 
