@@ -30,7 +30,8 @@ public class BudgetCalculator {
 
         List<Integer> dayCountsEachMonth = new ArrayList<>();
         if (budgetVos.size() == 1) {
-            dayCountsEachMonth.add(end.getDayOfMonth() - start.getDayOfMonth() + 1);
+            int daysDifferent = end.getDayOfMonth() - start.getDayOfMonth() + 1;
+            dayCountsEachMonth.add(daysDifferent);
         } else {
             for (int i = 0; i < budgetVos.size(); i++) {
                 if (i == 0) {
