@@ -34,27 +34,17 @@ public class BudgetCalculator {
         }
 
 
-        List<Double> priceUnitEachMonth = new ArrayList<>();
-        for (BudgetVo budget : budgets) {
-            priceUnitEachMonth.add((double) budget.getDailyAmount());
-        }
-
-        List<Integer> dayCountsEachMonth = new ArrayList<>();
+        double sum = 0.0;
         for (BudgetVo budget : budgets) {
             LocalDate periodStart = start.isAfter(budget.getStartDay()) ? start : budget.getStartDay();
             LocalDate periodEnd = end.isBefore(budget.getEndDay()) ? end : budget.getEndDay();
 
+            double dailyAmount = budget.getDailyAmount();
             int days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
-            dayCountsEachMonth.add(days);
+            sum += days * dailyAmount;
         }
 
-
-        double rtn = 0.0;
-        for (int i = 0; i < priceUnitEachMonth.size(); i++) {
-            rtn += dayCountsEachMonth.get(i) * priceUnitEachMonth.get(i);
-        }
-
-        return rtn;
+        return sum;
     }
 
     private List<YearMonth> getMonthRange(LocalDate start, LocalDate end) {
