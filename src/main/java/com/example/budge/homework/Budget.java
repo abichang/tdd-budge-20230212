@@ -10,12 +10,12 @@ public class Budget {
 
     private static final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMM");
 
-    private String yearMonth;
+    private YearMonth yearMonth;
 
     private Integer amount;
 
     public Budget(String yearMonth, Integer amount) {
-        this.yearMonth = yearMonth;
+        this.yearMonth = YearMonth.parse(yearMonth, df);
         this.amount = amount;
     }
 
@@ -25,7 +25,7 @@ public class Budget {
     }
 
     private YearMonth parseYearMonth() {
-        return YearMonth.parse(this.yearMonth, df);
+        return this.yearMonth;
     }
 
     private int getDailyAmount() {
