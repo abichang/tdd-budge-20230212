@@ -1,16 +1,15 @@
 package com.example.budge.homework;
 
-import lombok.Data;
+import lombok.Getter;
 
 import java.time.YearMonth;
 
-@Data
+@Getter
 public class BudgetVo {
 
-    private YearMonth yearMonth;
-
-    private Integer amount;
-    private Period period;
+    private final YearMonth yearMonth;
+    private final Integer amount;
+    private final Period period;
 
     public BudgetVo(YearMonth yearMonth, Integer amount) {
         this.yearMonth = yearMonth;
