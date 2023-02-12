@@ -35,8 +35,8 @@ public class BudgetCalculator {
 
 
         List<Double> priceUnitEachMonth = new ArrayList<>();
-        for (BudgetVo budgetVo : budgets) {
-            Double dailyAmount = budgetVo.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
+        for (BudgetVo budget : budgets) {
+            Double dailyAmount = budget.getAmount() / (double) (budget.getYearMonth().lengthOfMonth());
             priceUnitEachMonth.add(dailyAmount);
         }
 
