@@ -58,7 +58,7 @@ public class BudgetCalculator {
                 LocalDate periodEnd;
                 if (i == 0) {
                     periodStart = start;
-                    periodEnd = LocalDate.of(currentBudgetYearMonth.getYear(), currentBudgetYearMonth.getMonth(), currentBudgetYearMonth.lengthOfMonth());
+                    periodEnd = currentBudgetYearMonth.atEndOfMonth();
                 } else if (i == budgetVos.size() - 1) {
                     periodStart = LocalDate.of(end.getYear(), end.getMonth(), 1);
                     periodEnd = end;
