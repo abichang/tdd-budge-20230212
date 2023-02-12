@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 @Slf4j
 public class BudgetCalculator {
@@ -26,24 +25,11 @@ public class BudgetCalculator {
                     .amount(budgetEntity.getAmount())
                     .build();
             Period period = new Period(start, end);
-            int days = getOverlappingDays(budget, period);
+            int days = period.getOverlappingDays(budget);
             sum += days * budget.getDailyAmount();
         }
 
         return sum;
-    }
-
-    private static int getOverlappingDays(BudgetVo budget, Period period) {
-        int days;
-        if (period.getStart().isAfter(budget.getEndDay()) || period.getEnd().isBefore(budget.getStartDay())) {
-            days = 0;
-        } else {
-            LocalDate periodStart = period.getStart().isAfter(budget.getStartDay()) ? period.getStart() : budget.getStartDay();
-            LocalDate periodEnd = period.getEnd().isBefore(budget.getEndDay()) ? period.getEnd() : budget.getEndDay();
-
-            days = (int) ChronoUnit.DAYS.between(periodStart, periodEnd) + 1;
-        }
-        return days;
     }
 
 }
