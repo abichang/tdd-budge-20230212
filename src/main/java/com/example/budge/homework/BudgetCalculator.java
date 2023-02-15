@@ -12,7 +12,6 @@ import java.util.List;
 public class BudgetCalculator {
 
     private DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMM");
-    private DateTimeFormatter df2 = DateTimeFormatter.ofPattern("yyyyMMdd");
 
     private BudgetRepo budgetRepo;
 
@@ -36,7 +35,7 @@ public class BudgetCalculator {
 
         double rtn = 0.0;
         for (Budget budget : budgetRepo.getAll()) {
-            
+
             if (monthRange.contains(budget.getYearMonth())) {
 
                 YearMonth budgetYearMonth = YearMonth.parse(budget.getYearMonth(), df);
