@@ -42,7 +42,7 @@ public class BudgetCalculator {
                     .build();
             if (monthRange.contains(df.format(budgetVo.getYearMonth()))) {
 
-                double dailyAmount = budgetVo.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
+                double dailyAmount = budget.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
 
                 YearMonth startYearMonth = YearMonth.from(start);
                 YearMonth endYearMonth = YearMonth.from(end);
