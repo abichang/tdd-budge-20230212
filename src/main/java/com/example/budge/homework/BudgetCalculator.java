@@ -33,9 +33,7 @@ public class BudgetCalculator {
             startY = YearMonth.from(tmp);
         }
 
-        List<BudgetVo> filteredBudgets = new ArrayList<>();
-        List<Double> priceUnitEachMonth = new ArrayList<>();
-        List<Integer> dayCountsEachMonth = new ArrayList<>();
+
         double rtn = 0.0;
         for (Budget budget : budgetRepo.getAll()) {
             BudgetVo budgetVo = BudgetVo.builder()
@@ -43,10 +41,8 @@ public class BudgetCalculator {
                     .amount(budget.getAmount())
                     .build();
             if (monthRange.contains(df.format(budgetVo.getYearMonth()))) {
-                filteredBudgets.add(budgetVo);
 
-                Double dailyAmount = budgetVo.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
-                priceUnitEachMonth.add(dailyAmount);
+                double dailyAmount = budgetVo.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
 
                 YearMonth startYearMonth = YearMonth.from(start);
                 YearMonth endYearMonth = YearMonth.from(end);
@@ -55,7 +51,6 @@ public class BudgetCalculator {
                 int overlappingStartDay = startYearMonth.equals(budgetVoYearMonth) ? start.getDayOfMonth() : budgetVoYearMonth.atDay(1).getDayOfMonth();
                 int overlappingEndDay = endYearMonth.equals(budgetVoYearMonth) ? end.getDayOfMonth() : budgetVo.getYearMonth().lengthOfMonth();
                 int overlappingDays = overlappingEndDay - overlappingStartDay + 1;
-                dayCountsEachMonth.add(overlappingDays);
                 rtn += overlappingDays * dailyAmount;
             }
 
