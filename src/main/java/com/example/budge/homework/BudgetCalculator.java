@@ -59,24 +59,21 @@ public class BudgetCalculator {
             if (startYearMonth.equals(budgetVoYearMonth) && endYearMonth.equals(budgetVoYearMonth)) {
                 overlappingEndDay = end.getDayOfMonth();
                 overlappingStartDay = start.getDayOfMonth();
-                dayCountsEachMonth.add(overlappingEndDay - overlappingStartDay + 1);
             } else {
 
 
                 if (budgetVoYearMonth.equals(startYearMonth)) {
                     overlappingEndDay = budgetVo.getYearMonth().lengthOfMonth();
                     overlappingStartDay = start.getDayOfMonth();
-                    dayCountsEachMonth.add(overlappingEndDay - overlappingStartDay + 1);
                 } else if (budgetVoYearMonth.equals(endYearMonth)) {
                     overlappingEndDay = end.getDayOfMonth();
                     overlappingStartDay = 1;
-                    dayCountsEachMonth.add(overlappingEndDay - overlappingStartDay + 1);
                 } else {
                     overlappingEndDay = budgetVo.getYearMonth().lengthOfMonth();
                     overlappingStartDay = 1;
-                    dayCountsEachMonth.add(overlappingEndDay - overlappingStartDay + 1);
                 }
             }
+            dayCountsEachMonth.add(overlappingEndDay - overlappingStartDay + 1);
         }
 
 
