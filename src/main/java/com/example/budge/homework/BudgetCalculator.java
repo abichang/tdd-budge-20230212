@@ -52,9 +52,7 @@ public class BudgetCalculator {
         if (filteredBudgets.size() == 1) {
             dayCountsEachMonth.add(end.getDayOfMonth() - start.getDayOfMonth() + 1);
         } else {
-            for (int i = 0; i < filteredBudgets.size(); i++) {
-                BudgetVo budgetVo = filteredBudgets.get(i);
-
+            for (BudgetVo budgetVo : filteredBudgets) {
                 YearMonth startYearMonth = YearMonth.from(start);
                 YearMonth endYearMonth = YearMonth.from(end);
                 YearMonth budgetVoYearMonth = YearMonth.from(budgetVo.getYearMonth());
