@@ -29,7 +29,8 @@ public class BudgetCalculator {
             if ((budgetYearMonth.equals(startYearMonth) || budgetYearMonth.isAfter(startYearMonth)) &&
                     (budgetYearMonth.equals(endYearMonth) || budgetYearMonth.isBefore(endYearMonth))) {
 
-                int budgetEndDay = budgetYearMonth.atEndOfMonth().getDayOfMonth();
+                LocalDate budgetEndDate = budgetYearMonth.atEndOfMonth();
+                int budgetEndDay = budgetEndDate.getDayOfMonth();
                 double dailyAmount = budget.getAmount() / (double) budgetEndDay;
 
 
