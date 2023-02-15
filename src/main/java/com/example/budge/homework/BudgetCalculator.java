@@ -35,13 +35,16 @@ public class BudgetCalculator {
             startY = YearMonth.from(tmp);
         }
 
-        List<BudgetVo> filteredBudgets = budgetRepo.getAll().stream()
-                .map(budget -> BudgetVo.builder()
-                        .yearMonth(LocalDate.parse(budget.getYearMonth() + "01", df2))
-                        .amount(budget.getAmount())
-                        .build())
-                .filter(budgetVo -> monthRange.contains(df.format(budgetVo.getYearMonth())))
-                .collect(toList());
+        List<BudgetVo> filteredBudgets = new ArrayList<>();
+        for (Budget budget : budgetRepo.getAll()) {
+            BudgetVo budgetVo = BudgetVo.builder()
+                    .yearMonth(LocalDate.parse(budget.getYearMonth() + "01", df2))
+                    .amount(budget.getAmount())
+                    .build();
+            if (monthRange.contains(df.format(budgetVo.getYearMonth()))) {
+                filteredBudgets.add(budgetVo);
+            }
+        }
 
 
         List<Integer> dayCountsEachMonth = new ArrayList<>();
