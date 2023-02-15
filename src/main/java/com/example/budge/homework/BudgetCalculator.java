@@ -54,7 +54,7 @@ public class BudgetCalculator {
         } else {
             for (int i = 0; i < filteredBudgets.size(); i++) {
                 if (i == 0) {
-                    dayCountsEachMonth.add(filteredBudgets.get(0).getYearMonth().lengthOfMonth() - start.getDayOfMonth() + 1);
+                    dayCountsEachMonth.add(filteredBudgets.get(i).getYearMonth().lengthOfMonth() - start.getDayOfMonth() + 1);
                 } else if (i == filteredBudgets.size() - 1) {
                     dayCountsEachMonth.add(end.getDayOfMonth());
                 } else {
