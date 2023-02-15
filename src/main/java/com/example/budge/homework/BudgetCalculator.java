@@ -30,13 +30,12 @@ public class BudgetCalculator {
                     (budgetYearMonth.equals(endYearMonth) || budgetYearMonth.isBefore(endYearMonth))) {
 
                 LocalDate budgetEndDate = budgetYearMonth.atEndOfMonth();
-                int budgetEndDay = budgetEndDate.getDayOfMonth();
-                double dailyAmount = budget.getAmount() / (double) budgetEndDay;
+                double dailyAmount = budget.getAmount() / (double) budgetEndDate.getDayOfMonth();
 
 
                 LocalDate budgetStartDate = budgetYearMonth.atDay(1);
                 int overlappingStartDay = startYearMonth.equals(budgetYearMonth) ? start.getDayOfMonth() : budgetStartDate.getDayOfMonth();
-                int overlappingEndDay = endYearMonth.equals(budgetYearMonth) ? end.getDayOfMonth() : budgetEndDay;
+                int overlappingEndDay = endYearMonth.equals(budgetYearMonth) ? end.getDayOfMonth() : budgetEndDate.getDayOfMonth();
                 int overlappingDays = overlappingEndDay - overlappingStartDay + 1;
                 rtn += overlappingDays * dailyAmount;
             }
