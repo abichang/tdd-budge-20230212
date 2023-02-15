@@ -8,8 +8,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 @Slf4j
 public class BudgetCalculator {
 
@@ -62,12 +60,11 @@ public class BudgetCalculator {
             }
         }
 
-        List<Double> priceUnitEachMonth = filteredBudgets
-                .stream()
-                .map(v -> {
-                    return v.getAmount() / (double) (v.getYearMonth().lengthOfMonth());
-                })
-                .collect(toList());
+        List<Double> priceUnitEachMonth = new ArrayList<>();
+        for (BudgetVo v : filteredBudgets) {
+            Double aDouble = v.getAmount() / (double) (v.getYearMonth().lengthOfMonth());
+            priceUnitEachMonth.add(aDouble);
+        }
 
         double rtn = 0.0;
         for (int i = 0; i < priceUnitEachMonth.size(); i++) {
