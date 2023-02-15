@@ -17,13 +17,13 @@ public class BudgetCalculator {
     }
 
     public Double query(LocalDate start, LocalDate end) {
-      
+
 
         double rtn = 0.0;
+        YearMonth startYearMonth = YearMonth.from(start);
+        YearMonth endYearMonth = YearMonth.from(end);
         for (Budget budget : budgetRepo.getAll()) {
 
-            YearMonth startYearMonth = YearMonth.from(start);
-            YearMonth endYearMonth = YearMonth.from(end);
             YearMonth budgetYearMonth = YearMonth.parse(budget.getYearMonth(), df);
 
             if ((budgetYearMonth.equals(startYearMonth) || budgetYearMonth.isAfter(startYearMonth)) &&
