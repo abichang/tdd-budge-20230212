@@ -34,6 +34,7 @@ public class BudgetCalculator {
         }
 
         List<BudgetVo> filteredBudgets = new ArrayList<>();
+        List<Double> priceUnitEachMonth = new ArrayList<>();
         for (Budget budget : budgetRepo.getAll()) {
             BudgetVo budgetVo = BudgetVo.builder()
                     .yearMonth(LocalDate.parse(budget.getYearMonth() + "01", df2))
@@ -41,13 +42,10 @@ public class BudgetCalculator {
                     .build();
             if (monthRange.contains(df.format(budgetVo.getYearMonth()))) {
                 filteredBudgets.add(budgetVo);
-            }
-        }
 
-        List<Double> priceUnitEachMonth = new ArrayList<>();
-        for (BudgetVo budgetVo : filteredBudgets) {
-            Double dailyAmount = budgetVo.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
-            priceUnitEachMonth.add(dailyAmount);
+                Double dailyAmount = budgetVo.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
+                priceUnitEachMonth.add(dailyAmount);
+            }
         }
 
         List<Integer> dayCountsEachMonth = new ArrayList<>();
