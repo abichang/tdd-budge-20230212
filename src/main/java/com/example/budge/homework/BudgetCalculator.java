@@ -40,7 +40,7 @@ public class BudgetCalculator {
                     .yearMonth(LocalDate.parse(budget.getYearMonth() + "01", df2))
                     .amount(budget.getAmount())
                     .build();
-            if (monthRange.contains(df.format(budgetVo.getYearMonth()))) {
+            if (monthRange.contains(budget.getYearMonth())) {
 
                 double dailyAmount = budget.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
 
