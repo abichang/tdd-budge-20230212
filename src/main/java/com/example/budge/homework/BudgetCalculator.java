@@ -53,12 +53,14 @@ public class BudgetCalculator {
             dayCountsEachMonth.add(end.getDayOfMonth() - start.getDayOfMonth() + 1);
         } else {
             for (int i = 0; i < filteredBudgets.size(); i++) {
+                BudgetVo budgetVo = filteredBudgets.get(i);
+
                 if (i == 0) {
-                    dayCountsEachMonth.add(filteredBudgets.get(i).getYearMonth().lengthOfMonth() - start.getDayOfMonth() + 1);
+                    dayCountsEachMonth.add(budgetVo.getYearMonth().lengthOfMonth() - start.getDayOfMonth() + 1);
                 } else if (i == filteredBudgets.size() - 1) {
                     dayCountsEachMonth.add(end.getDayOfMonth());
                 } else {
-                    dayCountsEachMonth.add(filteredBudgets.get(i).getYearMonth().lengthOfMonth());
+                    dayCountsEachMonth.add(budgetVo.getYearMonth().lengthOfMonth());
                 }
             }
         }
