@@ -44,6 +44,11 @@ public class BudgetCalculator {
             }
         }
 
+        List<Double> priceUnitEachMonth = new ArrayList<>();
+        for (BudgetVo budget : filteredBudgets) {
+            Double dailyAmount = budget.getAmount() / (double) (budget.getYearMonth().lengthOfMonth());
+            priceUnitEachMonth.add(dailyAmount);
+        }
 
         List<Integer> dayCountsEachMonth = new ArrayList<>();
         if (filteredBudgets.size() == 1) {
@@ -60,11 +65,6 @@ public class BudgetCalculator {
             }
         }
 
-        List<Double> priceUnitEachMonth = new ArrayList<>();
-        for (BudgetVo budget : filteredBudgets) {
-            Double dailyAmount = budget.getAmount() / (double) (budget.getYearMonth().lengthOfMonth());
-            priceUnitEachMonth.add(dailyAmount);
-        }
 
         double rtn = 0.0;
         for (int i = 0; i < priceUnitEachMonth.size(); i++) {
