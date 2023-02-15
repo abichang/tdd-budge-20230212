@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 public class BudgetCalculator {
@@ -19,18 +17,7 @@ public class BudgetCalculator {
     }
 
     public Double query(LocalDate start, LocalDate end) {
-        YearMonth startY = YearMonth.from(start);
-
-        // get iterator months
-        // (202101, 202103) -> (01, 02, 03)
-        LocalDate tmp = LocalDate.of(start.getYear(), start.getMonthValue(), 1);
-        List<String> monthRange = new ArrayList<>();
-        while (!tmp.isAfter(end)) {
-            monthRange.add(startY.format(df));
-            tmp = tmp.plusMonths(1);
-            startY = YearMonth.from(tmp);
-        }
-
+      
 
         double rtn = 0.0;
         for (Budget budget : budgetRepo.getAll()) {
