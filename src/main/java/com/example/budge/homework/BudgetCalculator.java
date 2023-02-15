@@ -42,20 +42,19 @@ public class BudgetCalculator {
                         .build())
                 .filter(budgetVo -> monthRange.contains(df.format(budgetVo.getYearMonth())))
                 .collect(toList());
-        
-        List<BudgetVo> budgetVos = new ArrayList<>(filteredBudgets);
+
 
         List<Integer> dayCountsEachMonth = new ArrayList<>();
-        if (budgetVos.size() == 1) {
+        if (filteredBudgets.size() == 1) {
             dayCountsEachMonth.add(end.getDayOfMonth() - start.getDayOfMonth() + 1);
         } else {
-            for (int i = 0; i < budgetVos.size(); i++) {
+            for (int i = 0; i < filteredBudgets.size(); i++) {
                 if (i == 0) {
-                    dayCountsEachMonth.add(budgetVos.get(0).getYearMonth().lengthOfMonth() - start.getDayOfMonth() + 1);
-                } else if (i == budgetVos.size() - 1) {
+                    dayCountsEachMonth.add(filteredBudgets.get(0).getYearMonth().lengthOfMonth() - start.getDayOfMonth() + 1);
+                } else if (i == filteredBudgets.size() - 1) {
                     dayCountsEachMonth.add(end.getDayOfMonth());
                 } else {
-                    dayCountsEachMonth.add(budgetVos.get(i).getYearMonth().lengthOfMonth());
+                    dayCountsEachMonth.add(filteredBudgets.get(i).getYearMonth().lengthOfMonth());
                 }
             }
         }
