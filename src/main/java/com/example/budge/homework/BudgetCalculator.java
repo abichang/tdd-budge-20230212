@@ -68,7 +68,9 @@ public class BudgetCalculator {
                     int overlappingStartDay = 1;
                     dayCountsEachMonth.add(overlappingEndDay - overlappingStartDay + 1);
                 } else {
-                    dayCountsEachMonth.add(budgetVo.getYearMonth().lengthOfMonth());
+                    int overlappingEndDay = budgetVo.getYearMonth().lengthOfMonth();
+                    int overlappingStartDay = 1;
+                    dayCountsEachMonth.add(overlappingEndDay - overlappingStartDay + 1);
                 }
             }
         }
