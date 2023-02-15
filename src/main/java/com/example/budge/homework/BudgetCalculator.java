@@ -42,11 +42,11 @@ public class BudgetCalculator {
                     .build();
             if (monthRange.contains(budget.getYearMonth())) {
 
-                double dailyAmount = budget.getAmount() / (double) (budgetVo.getYearMonth().lengthOfMonth());
+                YearMonth budgetYearMonth = YearMonth.parse(budget.getYearMonth(), df);
+                double dailyAmount = budget.getAmount() / (double) budgetYearMonth.lengthOfMonth();
 
                 YearMonth startYearMonth = YearMonth.from(start);
                 YearMonth endYearMonth = YearMonth.from(end);
-                YearMonth budgetYearMonth = YearMonth.parse(budget.getYearMonth(), df);
 
                 int overlappingStartDay = startYearMonth.equals(budgetYearMonth) ? start.getDayOfMonth() : budgetYearMonth.atDay(1).getDayOfMonth();
                 int overlappingEndDay = endYearMonth.equals(budgetYearMonth) ? end.getDayOfMonth() : budgetVo.getYearMonth().lengthOfMonth();
