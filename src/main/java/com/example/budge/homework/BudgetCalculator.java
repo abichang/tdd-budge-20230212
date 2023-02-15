@@ -36,10 +36,7 @@ public class BudgetCalculator {
 
         double rtn = 0.0;
         for (Budget budget : budgetRepo.getAll()) {
-            BudgetVo budgetVo = BudgetVo.builder()
-                    .yearMonth(LocalDate.parse(budget.getYearMonth() + "01", df2))
-                    .amount(budget.getAmount())
-                    .build();
+            
             if (monthRange.contains(budget.getYearMonth())) {
 
                 YearMonth budgetYearMonth = YearMonth.parse(budget.getYearMonth(), df);
