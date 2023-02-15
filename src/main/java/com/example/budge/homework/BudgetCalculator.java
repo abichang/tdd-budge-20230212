@@ -66,10 +66,10 @@ public class BudgetCalculator {
                     overlappingStartDay = start.getDayOfMonth();
                     overlappingEndDay = budgetVo.getYearMonth().lengthOfMonth();
                 } else if (endYearMonth.equals(budgetVoYearMonth)) {
-                    overlappingStartDay = 1;
+                    overlappingStartDay = budgetVoYearMonth.atDay(1).getDayOfMonth();
                     overlappingEndDay = end.getDayOfMonth();
                 } else {
-                    overlappingStartDay = 1;
+                    overlappingStartDay = budgetVoYearMonth.atDay(1).getDayOfMonth();
                     overlappingEndDay = budgetVo.getYearMonth().lengthOfMonth();
                 }
             }
