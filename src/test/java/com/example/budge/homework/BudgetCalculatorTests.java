@@ -2,8 +2,7 @@ package com.example.budge.homework;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.Mockito;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -11,11 +10,9 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
 public class BudgetCalculatorTests {
 
-    @MockBean
-    private BudgetRepo budgetRepo;
+    private final BudgetRepo budgetRepo = Mockito.mock(BudgetRepo.class);
 
     @Test
     void testSingleDayInSingleMonth() {
@@ -77,6 +74,6 @@ public class BudgetCalculatorTests {
         LocalDate start = LocalDate.of(2021, 2, 28);
         LocalDate end = LocalDate.of(2021, 4, 2);
 
-        Assertions.assertThat(budgetCalculator.query(start, end)).isEqualTo((1*1) + (31*2) + (2*3));
+        Assertions.assertThat(budgetCalculator.query(start, end)).isEqualTo((1 * 1) + (31 * 2) + (2 * 3));
     }
 }
