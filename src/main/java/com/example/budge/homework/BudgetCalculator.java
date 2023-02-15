@@ -50,13 +50,14 @@ public class BudgetCalculator {
 
         List<Integer> dayCountsEachMonth = new ArrayList<>();
         for (BudgetVo budgetVo : filteredBudgets) {
-            if (filteredBudgets.size() == 1) {
+            YearMonth startYearMonth = YearMonth.from(start);
+            YearMonth endYearMonth = YearMonth.from(end);
+            YearMonth budgetVoYearMonth = YearMonth.from(budgetVo.getYearMonth());
+
+            if (startYearMonth.equals(budgetVoYearMonth) && endYearMonth.equals(budgetVoYearMonth)) {
                 dayCountsEachMonth.add(end.getDayOfMonth() - start.getDayOfMonth() + 1);
             } else {
 
-                YearMonth startYearMonth = YearMonth.from(start);
-                YearMonth endYearMonth = YearMonth.from(end);
-                YearMonth budgetVoYearMonth = YearMonth.from(budgetVo.getYearMonth());
 
                 if (budgetVoYearMonth.equals(startYearMonth)) {
                     int overlappingEndDay = budgetVo.getYearMonth().lengthOfMonth();
