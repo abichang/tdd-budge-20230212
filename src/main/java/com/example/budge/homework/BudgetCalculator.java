@@ -27,11 +27,13 @@ public class BudgetCalculator {
             YearMonth budgetYearMonth = YearMonth.parse(budget.getYearMonth(), df);
             double overlappingAmount = 0;
 
+            LocalDate budgetStartDate = budgetYearMonth.atDay(1);
+            LocalDate budgetEndDate = budgetYearMonth.atEndOfMonth();
+
+
             if ((budgetYearMonth.equals(startYearMonth) || budgetYearMonth.isAfter(startYearMonth)) &&
                     (budgetYearMonth.equals(endYearMonth) || budgetYearMonth.isBefore(endYearMonth))) {
 
-                LocalDate budgetStartDate = budgetYearMonth.atDay(1);
-                LocalDate budgetEndDate = budgetYearMonth.atEndOfMonth();
                 double dailyAmount = budget.getAmount() / (double) budgetEndDate.getDayOfMonth();
 
 
