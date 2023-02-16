@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 public class BudgetCalculator {
 
     private final BudgetRepo budgetRepo;
-    private DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMM");
 
     public BudgetCalculator(BudgetRepo budgetRepo) {
         this.budgetRepo = budgetRepo;
@@ -50,6 +49,6 @@ public class BudgetCalculator {
     }
 
     private YearMonth getParsedYearMonth(Budget budget) {
-        return YearMonth.parse(budget.getYearMonth(), df);
+        return YearMonth.parse(budget.getYearMonth(), DateTimeFormatter.ofPattern("yyyyMM"));
     }
 }
