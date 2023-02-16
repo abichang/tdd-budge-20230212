@@ -20,14 +20,15 @@ public class BudgetCalculator {
 
 
         double rtn = 0.0;
-        
+
         for (Budget budget : budgetRepo.getAll()) {
 
-            YearMonth budgetYearMonth = YearMonth.parse(budget.getYearMonth(), df);
-            double overlappingAmount;
+            YearMonth budgetYearMonth = getParsedYearMonth(budget);
 
             LocalDate budgetStartDate = budgetYearMonth.atDay(1);
             LocalDate budgetEndDate = budgetYearMonth.atEndOfMonth();
+
+            double overlappingAmount;
 
             if (end.isBefore(budgetStartDate) || start.isAfter(budgetEndDate)) {
                 overlappingAmount = 0;
@@ -46,5 +47,9 @@ public class BudgetCalculator {
         }
 
         return rtn;
+    }
+
+    private YearMonth getParsedYearMonth(Budget budget) {
+        return YearMonth.parse(budget.getYearMonth(), df);
     }
 }
