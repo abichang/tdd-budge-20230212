@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 
 @Slf4j
 public class BudgetCalculator {
@@ -22,7 +21,7 @@ public class BudgetCalculator {
 
         for (Budget budget : budgetRepo.getAll()) {
 
-            YearMonth budgetYearMonth = getParsedYearMonth(budget);
+            YearMonth budgetYearMonth = budget.getParsedYearMonth();
 
             LocalDate budgetStartDate = budgetYearMonth.atDay(1);
             LocalDate budgetEndDate = budgetYearMonth.atEndOfMonth();
@@ -48,7 +47,4 @@ public class BudgetCalculator {
         return rtn;
     }
 
-    private YearMonth getParsedYearMonth(Budget budget) {
-        return YearMonth.parse(budget.getYearMonth(), DateTimeFormatter.ofPattern("yyyyMM"));
-    }
 }
