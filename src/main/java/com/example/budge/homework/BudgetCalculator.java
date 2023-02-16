@@ -18,9 +18,10 @@ public class BudgetCalculator {
 
         double rtn = 0.0;
 
+        Period period = new Period(start, end);
         for (Budget budget : budgetRepo.getAll()) {
 
-            double overlappingAmount = getOverlappingAmount(new Period(start, end), budget);
+            double overlappingAmount = getOverlappingAmount(period, budget);
 
             rtn += overlappingAmount;
         }
