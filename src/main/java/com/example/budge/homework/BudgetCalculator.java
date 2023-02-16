@@ -20,28 +20,33 @@ public class BudgetCalculator {
 
         for (Budget budget : budgetRepo.getAll()) {
 
-            LocalDate budgetStartDate = budget.getStartDate();
-            LocalDate budgetEndDate = budget.getEndDate();
-
-            double overlappingAmount;
-
-            if (end.isBefore(budgetStartDate) || start.isAfter(budgetEndDate)) {
-                overlappingAmount = 0;
-            } else {
-
-                double dailyAmount = budget.getAmount() / (double) budgetEndDate.getDayOfMonth();
-
-
-                int overlappingStartDay = start.isAfter(budgetStartDate) ? start.getDayOfMonth() : budgetStartDate.getDayOfMonth();
-                int overlappingEndDay = end.isBefore(budgetEndDate) ? end.getDayOfMonth() : budgetEndDate.getDayOfMonth();
-                int overlappingDays = overlappingEndDay - overlappingStartDay + 1;
-                overlappingAmount = overlappingDays * dailyAmount;
-            }
+            double overlappingAmount = getOverlappingAmount(start, end, budget);
 
             rtn += overlappingAmount;
         }
 
         return rtn;
+    }
+
+    private static double getOverlappingAmount(LocalDate start, LocalDate end, Budget budget) {
+        LocalDate budgetStartDate = budget.getStartDate();
+        LocalDate budgetEndDate = budget.getEndDate();
+
+        double overlappingAmount;
+
+        if (end.isBefore(budgetStartDate) || start.isAfter(budgetEndDate)) {
+            overlappingAmount = 0;
+        } else {
+
+            double dailyAmount = budget.getAmount() / (double) budgetEndDate.getDayOfMonth();
+
+
+            int overlappingStartDay = start.isAfter(budgetStartDate) ? start.getDayOfMonth() : budgetStartDate.getDayOfMonth();
+            int overlappingEndDay = end.isBefore(budgetEndDate) ? end.getDayOfMonth() : budgetEndDate.getDayOfMonth();
+            int overlappingDays = overlappingEndDay - overlappingStartDay + 1;
+            overlappingAmount = overlappingDays * dailyAmount;
+        }
+        return overlappingAmount;
     }
 
 }
