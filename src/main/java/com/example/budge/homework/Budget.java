@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
@@ -19,6 +20,10 @@ public class Budget {
     private String yearMonth;
 
     private Integer amount;
+
+    public LocalDate getStartDate() {
+        return getParsedYearMonth().atDay(1);
+    }
 
     public YearMonth getParsedYearMonth() {
         return YearMonth.parse(this.yearMonth, YEAR_MONTH_FORMATTER);
