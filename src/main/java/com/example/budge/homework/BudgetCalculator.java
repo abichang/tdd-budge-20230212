@@ -3,7 +3,6 @@ package com.example.budge.homework;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
-import java.time.YearMonth;
 
 @Slf4j
 public class BudgetCalculator {
@@ -21,10 +20,8 @@ public class BudgetCalculator {
 
         for (Budget budget : budgetRepo.getAll()) {
 
-            YearMonth budgetYearMonth = budget.getParsedYearMonth();
-
-            LocalDate budgetStartDate = budgetYearMonth.atDay(1);
-            LocalDate budgetEndDate = budgetYearMonth.atEndOfMonth();
+            LocalDate budgetStartDate = budget.getParsedYearMonth().atDay(1);
+            LocalDate budgetEndDate = budget.getParsedYearMonth().atEndOfMonth();
 
             double overlappingAmount;
 
