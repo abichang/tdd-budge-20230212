@@ -20,12 +20,11 @@ public class BudgetCalculator {
 
 
         double rtn = 0.0;
-        YearMonth startYearMonth = YearMonth.from(start);
-        YearMonth endYearMonth = YearMonth.from(end);
+        
         for (Budget budget : budgetRepo.getAll()) {
 
             YearMonth budgetYearMonth = YearMonth.parse(budget.getYearMonth(), df);
-            double overlappingAmount = 0;
+            double overlappingAmount;
 
             LocalDate budgetStartDate = budgetYearMonth.atDay(1);
             LocalDate budgetEndDate = budgetYearMonth.atEndOfMonth();
