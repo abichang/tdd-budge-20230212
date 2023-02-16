@@ -20,7 +20,7 @@ public class BudgetCalculator {
 
         for (Budget budget : budgetRepo.getAll()) {
 
-            double overlappingAmount = getOverlappingAmount(start, end, budget);
+            double overlappingAmount = getOverlappingAmount(new Period(start, end), budget);
 
             rtn += overlappingAmount;
         }
@@ -28,21 +28,21 @@ public class BudgetCalculator {
         return rtn;
     }
 
-    private static double getOverlappingAmount(LocalDate start, LocalDate end, Budget budget) {
+    private static double getOverlappingAmount(Period period, Budget budget) {
         LocalDate budgetStartDate = budget.getStartDate();
         LocalDate budgetEndDate = budget.getEndDate();
 
         double overlappingAmount;
 
-        if (end.isBefore(budgetStartDate) || start.isAfter(budgetEndDate)) {
+        if (period.getEnd().isBefore(budgetStartDate) || period.getStart().isAfter(budgetEndDate)) {
             overlappingAmount = 0;
         } else {
 
             double dailyAmount = budget.getAmount() / (double) budgetEndDate.getDayOfMonth();
 
 
-            int overlappingStartDay = start.isAfter(budgetStartDate) ? start.getDayOfMonth() : budgetStartDate.getDayOfMonth();
-            int overlappingEndDay = end.isBefore(budgetEndDate) ? end.getDayOfMonth() : budgetEndDate.getDayOfMonth();
+            int overlappingStartDay = period.getStart().isAfter(budgetStartDate) ? period.getStart().getDayOfMonth() : budgetStartDate.getDayOfMonth();
+            int overlappingEndDay = period.getEnd().isBefore(budgetEndDate) ? period.getEnd().getDayOfMonth() : budgetEndDate.getDayOfMonth();
             int overlappingDays = overlappingEndDay - overlappingStartDay + 1;
             overlappingAmount = overlappingDays * dailyAmount;
         }
