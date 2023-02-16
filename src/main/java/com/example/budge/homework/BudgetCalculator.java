@@ -21,7 +21,7 @@ public class BudgetCalculator {
         for (Budget budget : budgetRepo.getAll()) {
 
             LocalDate budgetStartDate = budget.getStartDate();
-            LocalDate budgetEndDate = budget.getParsedYearMonth().atEndOfMonth();
+            LocalDate budgetEndDate = budget.getEndDate();
 
             double overlappingAmount;
 
