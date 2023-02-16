@@ -21,6 +21,6 @@ public class Budget {
     private Integer amount;
 
     public YearMonth getParsedYearMonth() {
-        return YearMonth.parse(getYearMonth(), YEAR_MONTH_FORMATTER);
+        return YearMonth.parse(this.yearMonth, YEAR_MONTH_FORMATTER);
     }
 }
