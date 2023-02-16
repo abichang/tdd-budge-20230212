@@ -14,11 +14,13 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor
 public class Budget {
 
+    private static final DateTimeFormatter YEAR_MONTH_FORMATTER = DateTimeFormatter.ofPattern("yyyyMM");
+
     private String yearMonth;
 
     private Integer amount;
 
     public YearMonth getParsedYearMonth() {
-        return YearMonth.parse(getYearMonth(), DateTimeFormatter.ofPattern("yyyyMM"));
+        return YearMonth.parse(getYearMonth(), YEAR_MONTH_FORMATTER);
     }
 }
