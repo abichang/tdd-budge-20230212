@@ -35,7 +35,7 @@ public class BudgetCalculator {
 
         double overlappingAmount;
 
-        if (!period.getEnd().isBefore(budgetPeriod.getStart()) && !period.getStart().isAfter(budgetPeriod.getEnd())) {
+        if (period.isOverlapping(budgetPeriod)) {
 
             double dailyAmount = budget.getAmount() / (double) budgetPeriod.getEnd().getDayOfMonth();
 

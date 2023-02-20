@@ -13,4 +13,8 @@ public class Period {
         this.start = start;
         this.end = end;
     }
+
+    public boolean isOverlapping(Period other) {
+        return !this.end.isBefore(other.getStart()) && !this.start.isAfter(other.getEnd());
+    }
 }
