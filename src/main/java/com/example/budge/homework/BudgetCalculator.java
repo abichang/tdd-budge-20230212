@@ -31,7 +31,7 @@ public class BudgetCalculator {
 
     private static double getOverlappingAmount(Period period, Budget budget) {
 
-        Period budgetPeriod = new Period(budget.getStartDate(), budget.getEndDate());
+        Period budgetPeriod = budget.getPeriod();
 
         double overlappingAmount;
 

@@ -21,15 +21,19 @@ public class Budget {
 
     private Integer amount;
 
+    public Period getPeriod() {
+        return new Period(getStartDate(), getEndDate());
+    }
+
+    public LocalDate getStartDate() {
+        return getParsedYearMonth().atDay(1);
+    }
+
     public LocalDate getEndDate() {
         return getParsedYearMonth().atEndOfMonth();
     }
 
     public YearMonth getParsedYearMonth() {
         return YearMonth.parse(this.yearMonth, YEAR_MONTH_FORMATTER);
-    }
-
-    public LocalDate getStartDate() {
-        return getParsedYearMonth().atDay(1);
     }
 }
