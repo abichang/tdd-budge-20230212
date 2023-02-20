@@ -35,9 +35,7 @@ public class BudgetCalculator {
 
         double overlappingAmount;
 
-        if (period.getEnd().isBefore(budgetStartDate) || period.getStart().isAfter(budgetEndDate)) {
-            overlappingAmount = 0;
-        } else {
+        if (!period.getEnd().isBefore(budgetStartDate) && !period.getStart().isAfter(budgetEndDate)) {
 
             double dailyAmount = budget.getAmount() / (double) budgetEndDate.getDayOfMonth();
 
@@ -46,6 +44,8 @@ public class BudgetCalculator {
             int overlappingEndDay = period.getEnd().isBefore(budgetEndDate) ? period.getEnd().getDayOfMonth() : budgetEndDate.getDayOfMonth();
             int overlappingDays = overlappingEndDay - overlappingStartDay + 1;
             overlappingAmount = overlappingDays * dailyAmount;
+        } else {
+            overlappingAmount = 0;
         }
         return overlappingAmount;
     }
